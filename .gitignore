@@ -1,0 +1,12 @@
+*~
+components/u-boot-uub/*
+*/config.old
+build/
+images/
+.petalinux/*
+!.petalinux/metadata
+*.o
+*.jou
+*.log
+*.elf
+BOOT.BIN

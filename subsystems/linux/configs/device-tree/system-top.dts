@@ -1,0 +1,15 @@
+/dts-v1/;
+/include/ "system-conf.dtsi"
+/ {
+
+/*
+ *  Stupid PetaLinux installer doesn't propagate console choice.
+ */
+ 
+	chosen {
+		bootargs = "console=ttyPS1,9600 earlyprintk";
+	};
+
+
+};
+

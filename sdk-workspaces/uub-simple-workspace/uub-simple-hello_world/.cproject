@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="xilinx.gnu.arm.exe.debug.1033522497">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="xilinx.gnu.arm.exe.debug.1033522497" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.xilinx.sdk.managedbuilder.XELF.arm" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="xilinx.gnu.arm.exe.debug.1033522497" name="Debug" parent="xilinx.gnu.arm.exe.debug">
+					<folderInfo id="xilinx.gnu.arm.exe.debug.1033522497." name="/" resourcePath="">
+						<toolChain id="xilinx.gnu.arm.exe.debug.toolchain.15160142" name="Xilinx ARM GNU Toolchain" superClass="xilinx.gnu.arm.exe.debug.toolchain">
+							<targetPlatform binaryParser="com.xilinx.sdk.managedbuilder.XELF.arm" id="xilinx.arm.target.gnu.base.debug.755204794" isAbstract="false" name="Debug Platform" superClass="xilinx.arm.target.gnu.base.debug"/>
+							<builder buildPath="${workspace_loc:/uub-simple-hello_world}/Debug" enableAutoBuild="true" id="xilinx.gnu.arm.toolchain.builder.debug.1808239528" managedBuildOn="true" name="GNU make.Debug" superClass="xilinx.gnu.arm.toolchain.builder.debug"/>
+							<tool id="xilinx.gnu.arm.c.toolchain.assembler.debug.1192370399" name="ARM gcc assembler" superClass="xilinx.gnu.arm.c.toolchain.assembler.debug">
+								<inputType id="xilinx.gnu.assembler.input.1235750736" superClass="xilinx.gnu.assembler.input"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.c.toolchain.compiler.debug.465862536" name="ARM gcc compiler" superClass="xilinx.gnu.arm.c.toolchain.compiler.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.445138410" superClass="xilinx.gnu.compiler.option.optimization.level" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.option.debugging.level.603969140" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.includes.372533271" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/include"/>
+								</option>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.flags.2051888068" superClass="xilinx.gnu.compiler.inferred.swplatform.flags" value="  " valueType="string"/>
+								<inputType id="xilinx.gnu.arm.c.compiler.input.1181366866" name="C source files" superClass="xilinx.gnu.arm.c.compiler.input"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.cxx.toolchain.compiler.debug.1389203209" name="ARM g++ compiler" superClass="xilinx.gnu.arm.cxx.toolchain.compiler.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.637498826" superClass="xilinx.gnu.compiler.option.optimization.level" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.option.debugging.level.546333623" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.includes.1283520180" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/include"/>
+								</option>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.flags.1933640762" superClass="xilinx.gnu.compiler.inferred.swplatform.flags" value="  " valueType="string"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.toolchain.archiver.575111606" name="ARM archiver" superClass="xilinx.gnu.arm.toolchain.archiver"/>
+							<tool id="xilinx.gnu.arm.c.toolchain.linker.debug.1606299921" name="ARM gcc linker" superClass="xilinx.gnu.arm.c.toolchain.linker.debug">
+								<option id="xilinx.gnu.linker.inferred.swplatform.lpath.29959324" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/lib"/>
+								</option>
+								<option id="xilinx.gnu.linker.inferred.swplatform.flags.959994605" superClass="xilinx.gnu.linker.inferred.swplatform.flags" valueType="libs">
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group"/>
+								</option>
+								<option id="xilinx.gnu.c.linker.option.lscript.371680731" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
+								<inputType id="xilinx.gnu.linker.input.977721075" superClass="xilinx.gnu.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+								<inputType id="xilinx.gnu.linker.input.lscript.1523341158" name="Linker Script" superClass="xilinx.gnu.linker.input.lscript"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.cxx.toolchain.linker.debug.855599347" name="ARM g++ linker" superClass="xilinx.gnu.arm.cxx.toolchain.linker.debug">
+								<option id="xilinx.gnu.linker.inferred.swplatform.lpath.627572466" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/lib"/>
+								</option>
+								<option id="xilinx.gnu.linker.inferred.swplatform.flags.470069695" superClass="xilinx.gnu.linker.inferred.swplatform.flags" valueType="libs">
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group"/>
+								</option>
+								<option id="xilinx.gnu.c.linker.option.lscript.1859857435" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.size.debug.839669582" name="ARM Print Size" superClass="xilinx.gnu.arm.size.debug"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="xilinx.gnu.arm.exe.release.1358129098">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="xilinx.gnu.arm.exe.release.1358129098" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.xilinx.sdk.managedbuilder.XELF.arm" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="xilinx.gnu.arm.exe.release.1358129098" name="Release" parent="xilinx.gnu.arm.exe.release">
+					<folderInfo id="xilinx.gnu.arm.exe.release.1358129098." name="/" resourcePath="">
+						<toolChain id="xilinx.gnu.arm.exe.release.toolchain.1072545817" name="Xilinx ARM GNU Toolchain" superClass="xilinx.gnu.arm.exe.release.toolchain">
+							<targetPlatform binaryParser="com.xilinx.sdk.managedbuilder.XELF.arm" id="xilinx.arm.target.gnu.base.release.1484955432" isAbstract="false" name="Release Platform" superClass="xilinx.arm.target.gnu.base.release"/>
+							<builder buildPath="${workspace_loc:/uub-simple-hello_world}/Release" enableAutoBuild="true" id="xilinx.gnu.arm.toolchain.builder.release.577669055" managedBuildOn="true" name="GNU make.Release" superClass="xilinx.gnu.arm.toolchain.builder.release"/>
+							<tool id="xilinx.gnu.arm.c.toolchain.assembler.release.1416236484" name="ARM gcc assembler" superClass="xilinx.gnu.arm.c.toolchain.assembler.release">
+								<inputType id="xilinx.gnu.assembler.input.528043122" superClass="xilinx.gnu.assembler.input"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.c.toolchain.compiler.release.1349246101" name="ARM gcc compiler" superClass="xilinx.gnu.arm.c.toolchain.compiler.release">
+								<option defaultValue="gnu.c.optimization.level.more" id="xilinx.gnu.compiler.option.optimization.level.735779151" superClass="xilinx.gnu.compiler.option.optimization.level" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.option.debugging.level.161389767" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.includes.502676140" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/include"/>
+								</option>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.flags.1764062437" superClass="xilinx.gnu.compiler.inferred.swplatform.flags" value="  " valueType="string"/>
+								<inputType id="xilinx.gnu.arm.c.compiler.input.1045538003" name="C source files" superClass="xilinx.gnu.arm.c.compiler.input"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.cxx.toolchain.compiler.release.1119691757" name="ARM g++ compiler" superClass="xilinx.gnu.arm.cxx.toolchain.compiler.release">
+								<option defaultValue="gnu.c.optimization.level.more" id="xilinx.gnu.compiler.option.optimization.level.1151751671" superClass="xilinx.gnu.compiler.option.optimization.level" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.option.debugging.level.597336755" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.includes.1131259203" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/include"/>
+								</option>
+								<option id="xilinx.gnu.compiler.inferred.swplatform.flags.1369260550" superClass="xilinx.gnu.compiler.inferred.swplatform.flags" value="  " valueType="string"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.toolchain.archiver.913010392" name="ARM archiver" superClass="xilinx.gnu.arm.toolchain.archiver"/>
+							<tool id="xilinx.gnu.arm.c.toolchain.linker.release.1970958324" name="ARM gcc linker" superClass="xilinx.gnu.arm.c.toolchain.linker.release">
+								<option id="xilinx.gnu.linker.inferred.swplatform.lpath.271449128" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/lib"/>
+								</option>
+								<option id="xilinx.gnu.linker.inferred.swplatform.flags.1615513834" superClass="xilinx.gnu.linker.inferred.swplatform.flags" valueType="libs">
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group"/>
+								</option>
+								<option id="xilinx.gnu.c.linker.option.lscript.2084093576" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
+								<inputType id="xilinx.gnu.linker.input.1860644398" superClass="xilinx.gnu.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+								<inputType id="xilinx.gnu.linker.input.lscript.1195344420" name="Linker Script" superClass="xilinx.gnu.linker.input.lscript"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.cxx.toolchain.linker.release.1486072728" name="ARM g++ linker" superClass="xilinx.gnu.arm.cxx.toolchain.linker.release">
+								<option id="xilinx.gnu.linker.inferred.swplatform.lpath.1127741786" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../../uub-fsbl_bsp/ps7_cortexa9_0/lib"/>
+								</option>
+								<option id="xilinx.gnu.linker.inferred.swplatform.flags.1804049077" superClass="xilinx.gnu.linker.inferred.swplatform.flags" valueType="libs">
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group"/>
+									<listOptionValue builtIn="false" value="-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group"/>
+								</option>
+								<option id="xilinx.gnu.c.linker.option.lscript.1796270464" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
+							</tool>
+							<tool id="xilinx.gnu.arm.size.release.1095311903" name="ARM Print Size" superClass="xilinx.gnu.arm.size.release"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="uub-simple-hello_world.xilinx.gnu.arm.exe.179986062" name="Xilinx ARM Executable" projectType="xilinx.gnu.arm.exe"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="xilinx.gnu.arm.exe.debug.1033522497;xilinx.gnu.arm.exe.debug.1033522497.;xilinx.gnu.arm.c.toolchain.compiler.debug.465862536;xilinx.gnu.arm.c.compiler.input.1181366866">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="xilinx.gnu.arm.exe.release.1358129098;xilinx.gnu.arm.exe.release.1358129098.;xilinx.gnu.arm.c.toolchain.compiler.release.1349246101;xilinx.gnu.arm.c.compiler.input.1045538003">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="xilinx.gnu.arm.exe.debug.1033522497;xilinx.gnu.arm.exe.debug.1033522497.">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="xilinx.gnu.arm.exe.release.1358129098;xilinx.gnu.arm.exe.release.1358129098.">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+</cproject>
