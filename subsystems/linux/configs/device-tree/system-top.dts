@@ -9,7 +9,26 @@
 	chosen {
 		bootargs = "console=ttyPS1,9600 earlyprintk";
 	};
-
-
 };
+/*
+ * Stupid PetaLinux installer uses a flash that's not actually
+ * listed in the MTD subsystem list!
+ */
+&qspi {
+	flash0: flash@0 {
+		compatible = "micron,n25q00";
+		spi-max-frequency = <25000000>;
+        };
+};	
 
+&gem0 {
+        phy-handle = <&phy0>;
+	ps7_ethernet_0_mdio: mdio {
+	  status = "disabled";
+	};
+	phy0: phy@0 {
+	  compatible = "marvell,88e1510";
+	  device_type= "ethernet-phy";
+ 	  reg = <0>;	  
+	};
+};
