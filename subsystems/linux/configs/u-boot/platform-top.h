@@ -1,6 +1,9 @@
 
 #include <configs/platform-auto.h>
 
+#undef CONFIG_SF_DEFAULT_SPEED
+#define CONFIG_SF_DEFAULT_SPEED (XILINX_PS7_QSPI_CLK_FREQ_HZ / 8)
+
 #define CONFIG_CMD_UBI
 #define CONFIG_CMD_UBIFS
 #define CONFIG_RBTREE
@@ -9,6 +12,8 @@
 #define CONFIG_SPI_FLASH_MTD
 #define CONFIG_CMD_MTDPARTS
 #define CONFIG_LZO
+
+#define CONFIG_ZYNQ_USB
 
 #define CONFIG_SYS_MALLOC_LEN 4*1024*1024
 
