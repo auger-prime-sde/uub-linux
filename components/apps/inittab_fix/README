@@ -1,0 +1,12 @@
+inittab_fix
+===========
+
+This isn't really an app, it just overwrites the broken /etc/inittab
+from PetaLinux with a working one.
+
+PetaLinux's inittab assumes a console on ttyPS0, and if you change the
+serial port to ttyPS1, it doesn't propagate that change everywhere
+needed (really, it barely propagates it anywhere).
+
+So the simple fix here is just to create an "app" which overwrites
+the inittab in the filesystem.
