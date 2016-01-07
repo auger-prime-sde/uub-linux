@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="/home/barawn/uub-linux/uub-linux/subsystems/linux/hw-description" key="com.xilinx.sdk.hw.ui.hwspec.last"/>
-	<item value="/mnt/hgfs/uub-zynq/hardware" key="hwspec_file_selection"/>
-	<item value="/mnt/hgfs/uub-zynq/hardware" key="last_stored_selection"/>
+	<item value="/home/barawn/uub-linux/uub-linux/subsystems/linux/hw-description" key="hwspec_file_selection"/>
+	<item value="/home/barawn/uub-linux/uub-linux/subsystems/linux/hw-description" key="last_stored_selection"/>
 </section>

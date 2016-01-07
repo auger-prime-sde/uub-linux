@@ -37,15 +37,15 @@
 		spi-max-frequency = <50000000>;
 		partition@0x00000000 {
 			label = "qspi-fsbl-uboot";
-			reg = <0x00000000 0x00800000>;
+			reg = <0x00000000 0x00200000>;
 		};
-		partition@0x00800000 {
+		partition@0x00200000 {
 			label = "qspi-ubi-itb";
-			reg = <0x00800000 0x01800000>;
+			reg = <0x00200000 0x01800000>;
 		};
-		partition@0x02000000 {
-			label = "qspi-rootfs";
-			reg = <0x02000000 0x0e000000>;
+		partition@0x01a00000 {
+			label = "qspi-ubi-rootfs";
+			reg = <0x01a00000 0x06600000>;
 		};
 	};
 };

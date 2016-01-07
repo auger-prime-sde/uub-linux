@@ -84,7 +84,7 @@
 #define CONFIG_NETMASK	255.255.255.0
 
 /* spi_flash - ps7_qspi_0 */
-#define XILINX_PS7_QSPI_CLK_FREQ_HZ	60344830
+#define XILINX_PS7_QSPI_CLK_FREQ_HZ	200000000
 #define CONFIG_SF_DEFAULT_SPEED	(XILINX_PS7_QSPI_CLK_FREQ_HZ / 4)
 #define CONFIG_ZYNQ_QSPI
 #define CONFIG_SF_DUAL_FLASH
@@ -182,7 +182,7 @@
 	"netstart=0x01000000\0" \
 	"dtbnetstart=0x02800000\0" \
 	"loadaddr=0x01000000\0" \
-	"bootsize=0x800000\0" \
+	"bootsize=0x00200000\0" \
 	"bootstart=0x0\0" \
 	"boot_img=BOOT.BIN\0" \
 	"load_boot=tftp ${clobstart} ${boot_img}\0" \
