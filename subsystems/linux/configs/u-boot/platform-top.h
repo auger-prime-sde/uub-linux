@@ -23,8 +23,8 @@
 #define CONFIG_ENV_UBI_VOLUME "u-boot-env1"
 #define CONFIG_ENV_UBI_VOLUME_REDUND "u-boot-env2"
 
-#define MTDIDS_DEFAULT "nor0=zynq_sf.0"
-#define MTDPARTS_DEFAULT "mtdparts=zynq_sf.0:2m(qspi-fsbl-uboot),24m(qspi-ubi-itb),102m(qspi-ubi-rootfs)"
+#define MTDIDS_DEFAULT "nor0=spi32764.0"
+#define MTDPARTS_DEFAULT "mtdparts=spi32764.0:2m(qspi-fsbl-uboot),24m(qspi-ubi-itb),102m(qspi-ubi-rootfs)"
 
 #define CONFIG_DISPLAY_BOARDINFO
 
