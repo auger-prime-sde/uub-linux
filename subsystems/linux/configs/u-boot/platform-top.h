@@ -60,5 +60,5 @@
      "test_img=setenv var \"if test ${filesize} -gt ${psize}\\; then run fault\\; else run ${installcmd}\\; fi\"; run var; setenv var\0" \
      "kernel_img=image.ub\0" \
      "netboot=tftp ${netstart} ${kernel_img} && bootm\0" \
-     "mtdparts=mtdparts=zynq_sf.0:2m(qspi-fsbl-uboot),24m(qspi-ubi-itb),102m(qspi-ubi-rootfs)" \
+     "mtdparts=mtdparts=spi32764.0:2m(qspi-fsbl-uboot),24m(qspi-ubi-itb),102m(qspi-ubi-rootfs)" \
      ""
