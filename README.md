@@ -35,8 +35,10 @@ $ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/linux/zynq_fsbl.elf
 
 ## Steps to first boot of U-Boot
 
-The first boot needs to be done over JTAG, because nothing is in flash yet. We want to use XMD and petalinux-boot to do this. petalinux-boot does not seem to be able to force , however, so to be safe, we need to do (replace CABLE_CONNECTION_HERE with your
-cable settings (e.g. -cable type xilinx_platformusb, or -cable url tcp:IP_ADDRESS:3121)
+The first boot needs to be done over JTAG, because nothing is in flash yet. We want to use XMD and petalinux-boot to do this. petalinux-boot does not seem to be able to force a reset, however, so to be safe, we need to use XMD to do that. 
+
+So do (replace CABLE_CONNECTION_HERE with your cable settings (e.g. -cable type xilinx_platformusb, or 
+-cable url tcp:IP_ADDRESS:3121)
 
 ```
 $ xmd
