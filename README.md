@@ -164,4 +164,34 @@ root@uub-linux:/var/ftp# flashcp BOOT.BIN /dev/mtd1
 root@uub-linux:/var/ftp#
 ```
 
-At this point the UUB should be able to boot U-Boot. It still cannot boot Linux yet.
+At this point the UUB should be able to boot U-Boot. It still cannot boot Linux yet. For that, we need to create the UBIFS partition where we're going to store images (ITBs: 'image tree blobs'). UBIFS automatically formats space when it finds an empty partition, so all we need to do the first time is:
+
+```
+root@uub-linux:/var/ftp# ubiattach -p /dev/mtd2
+(... bunch of stuff from UBI ...)
+UBI-0: ubi_thread:background thread "ubi_bgt0d" started, PID 913
+UBI device number 0, total 384 LEBs (25116672 bytes, 24.0 MiB), available 0 LEBs (0 bytes), LEB size 65408 bytes (63.9 KiB)
+root@uub-linux:/var/ftp# mount -t ubifs ubi0:itbs /boot
+(... bunch of stuff from UBIFS ...)
+UBIFS: reserved for root: 1136892 bytes (1110 KiB)
+UBIFS: media format: w4/r0 (latest is w4/r0), UUID D791FDB3-557B-4E22-BE81-76064815957A, small LPT model
+root@uub-linux:/var/ftp
+```
+
+Now, get "image.ub" onto the UUB (again, probably via ftp). It's located in images/linux/image.ub. Once you get it onto the UUB, you just need to copy it over.
+
+```
+root@uub-linux:/var/ftp# cp image.ub /boot
+root@uub-linux:/var/ftp# sync
+root@uub-linux:/var/ftp#
+```
+
+Note that 'sync' will take much longer than cp! **Important note:** When copying files on UBI, the write is not actually complete until 'sync' returns! UBI is dealing with erasing/programming the flash in the background, which takes much longer. Do **not** power cycle the UUB without doing either a proper "halt" or "reboot." Power cycling from U-Boot is fine.
+
+At this point, the system is ready. Reboot, and U-Boot should load, and then automatically load image.ub from the filesystem and boot.
+
+## Updating the system
+
+Replacing the base operating system ("image.ub") is just as simple as above: ubiattach -p /dev/mtd2, mount -t ubifs ubi0:itbs /boot, and then copy the file over.
+
+FPGA .bin images can be placed in "/boot" as well, and then programmed via U-Boot's **fpga** command.
