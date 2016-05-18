@@ -30,7 +30,7 @@ it needs to use a different FSBL, so we'll grab that one too.
 
 ```
 $ petalinux-build --prebuilt
-$ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/linux/zynq_fsbl.elf
+$ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/images/linux/zynq_fsbl.elf
 ```
 
 ## Steps to first boot of U-Boot
