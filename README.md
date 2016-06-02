@@ -29,7 +29,7 @@ Now create the "pre-built" images. These are the images that PetaLinux uses to b
 it needs to use a different FSBL, so we'll grab that one too.
 
 ```
-$ petalinux-build --prebuilt
+$ petalinux-package --prebuilt
 $ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/images/linux/zynq_fsbl.elf
 ```
 
@@ -97,6 +97,18 @@ Error: Gem.e000b000 address not set.
 Hit any key to stop autoboot:  0
 U-Boot-PetaLinux>
 ```
+
+On a first boot, this won't exactly look like this. I haven't been able to catch the exact boot sequence yet, but it will complain about not being able to find the u-boot-env1 and u-boot-env2 partition.
+
+So now do
+
+```
+U-Boot-PetaLinux> ubi create u-boot-env1 65408
+(... ubi stuff ...)
+U-Boot-PetaLinux> ubi create u-boot-env2 65408
+(... ubi stuff ...)
+U-Boot-PetaLinux> ubi create itbs 24724224
+````
 
 Now do
 ```
