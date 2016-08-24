@@ -30,7 +30,7 @@ it needs to use a different FSBL, so we'll grab that one too.
 
 ```
 $ petalinux-package --prebuilt
-$ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/images/linux/zynq_fsbl.elf
+$ cp prebuilt_images/zynq_fsbl_JTAG.elf pre-built/linux/images/zynq_fsbl.elf
 ```
 
 ## Steps to first boot of U-Boot
@@ -100,15 +100,57 @@ U-Boot-PetaLinux>
 
 On a first boot, this won't exactly look like this. I haven't been able to catch the exact boot sequence yet, but it will complain about not being able to find the u-boot-env1 and u-boot-env2 partition.
 
+### Error -22
+
+If the flash was initially **not blank**, the UBI attach will fail with error -22, like this:
+
+```
+SF: Detected N25Q1024 with page size 256 Bytes, erase size 64 KiB, total 256 MiB
+UBI: attaching mtd1 to ubi0
+UBI: scanning is finished
+UBI init error 22
+
+** Cannot find mtd partition "qspi-ubi-itb"
+Using default environment
+```
+
+In that case, hit any key to stop autoboot (which wouldn't work anyway) and do
+
+```
+U-Boot-PetaLinux> sf probe
+SF: Detected N25Q1024 with page size 256 Bytes, erase size 64 KiB, total 256 MiB
+U-Boot-PetaLinux> sf erase qspi-ubi-itb 0x1800000
+SF: 25165824 bytes @ 0x200000 Erased: OK
+U-Boot-PetaLinux> ubi part qspi-ubi-itb
+UBI: attaching mtd2 to ubi0
+UBI: scanning is finished
+UBI: empty MTD device detected
+UBI: attached mtd2 (name "mtd=1", size 24 MiB) to ubi0
+UBI: PEB size: 65536 bytes (64 KiB), LEB size: 65408 bytes
+UBI: min./max. I/O unit sizes: 1/256, sub-page size 1
+UBI: VID header offset: 64 (aligned 64), data offset: 128
+UBI: good PEBs: 384, bad PEBs: 0, corrupted PEBs: 0
+UBI: user volume: 0, internal volumes: 1, max. volumes count: 128
+UBI: max/mean erase counter: 1/0, WL threshold: 4096, image sequence number: 0
+UBI: available PEBs: 380, total reserved PEBs: 4, PEBs reserved for bad PEB handling: 0
+U-Boot-PetaLinux>
+```
+
+This is also the way to "start fresh" again.
+
+### Saving the U-Boot Environment
+
 So now do
 
 ```
-U-Boot-PetaLinux> ubi create u-boot-env1 65408
+U-Boot-PetaLinux> ubi create u-boot-env1 0xFF80 s
 (... ubi stuff ...)
-U-Boot-PetaLinux> ubi create u-boot-env2 65408
+U-Boot-PetaLinux> ubi create u-boot-env2 0xFF80 s
 (... ubi stuff ...)
-U-Boot-PetaLinux> ubi create itbs 24724224
+U-Boot-PetaLinux> ubi create itbs 0x1794300 s
 ````
+
+Note the 's' at the end - that selects a static volume. Also note that you must specify the sizes in hex, even though they report back in decimal.
 
 Now do
 ```
