@@ -1,0 +1,3 @@
+[submodule "components/u-boot/u-boot-uub"]
+	path = components/u-boot/u-boot-uub
+	url = http://github.com/barawn/u-boot-uub.git
