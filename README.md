@@ -5,7 +5,7 @@ PetaLinux distribution for UUB
 
 Replace $(PATH_TO_PETALINUX) and $(PATH_TO_XILINX) with your paths to the petalinux and Xilinx installs, respectively.
 
-1. Clone the repository (git clone https://github.com/barawn/uub-linux.git uub-linux)
+1. Clone the repository (git clone --recursive https://github.com/barawn/uub-linux.git uub-linux). Note the '--recursive': the U-Boot repository is separate from the PetaLinux project. 
 2. Source the PetaLinux settings (source $(PATH_TO_PETALINUX)/settings.sh)
 3. Source the Vivado settings (source $(PATH_TO_XILINX)/Vivado/2015.2/settings64.sh)
 4. Change into the repository (cd uub-linux)
