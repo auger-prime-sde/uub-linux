@@ -61,4 +61,6 @@
      "kernel_img=image.ub\0" \
      "netboot=tftp ${netstart} ${kernel_img} && bootm\0" \
      "mtdparts=mtdparts=spi32764.0:2m(qspi-fsbl-uboot),24m(qspi-ubi-itb),102m(qspi-ubi-rootfs)" \
+     "default_bootcmd=run ubifsboot" \
+     "ubifsboot=ubifsmount ubi0:itbs && ubifsload ${loadaddr} image.ub && bootm" \
      ""
