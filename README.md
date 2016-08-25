@@ -147,10 +147,10 @@ U-Boot-PetaLinux> ubi create u-boot-env1 0xFF80 s
 (... ubi stuff ...)
 U-Boot-PetaLinux> ubi create u-boot-env2 0xFF80 s
 (... ubi stuff ...)
-U-Boot-PetaLinux> ubi create itbs 0x1794300 s
+U-Boot-PetaLinux> ubi create itbs 0x1794300
 ````
 
-Note the 's' at the end - that selects a static volume. Also note that you must specify the sizes in hex, even though they report back in decimal.
+Note the 's' at the end - that selects a static volume for the first two. Also note that you must specify the sizes in hex, even though they report back in decimal.
 
 Now do
 ```
