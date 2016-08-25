@@ -205,7 +205,7 @@ The 'prebuilt 3' launches Linux. This will take MUCH LONGER to load! 5-10 minute
 
 ## Loading FSBL, U-Boot, and Linux into SPI flash
 
-You'll need some kind of access onto the UUB - Ethernet, or maybe USB. I've always used Ethernet. You can initialize Ethernet via "udhcpc" to get a DHCP address. Then you need to create the BOOT.BIN image.
+You'll need some kind of access onto the UUB - Ethernet, or maybe USB. You can send the images over serial as well using lrzsz, but it's very slow (~2 hours). I've always used Ethernet. You can initialize Ethernet via "udhcpc" to get a DHCP address. Then you need to create the BOOT.BIN image.
 
 ```
 $ petalinux-package --boot --fsbl=images/linux/zynq_fsbl.elf --u-boot
