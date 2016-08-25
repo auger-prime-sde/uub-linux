@@ -208,7 +208,7 @@ The 'prebuilt 3' launches Linux. This will take MUCH LONGER to load! 5-10 minute
 You'll need some kind of access onto the UUB - Ethernet, or maybe USB. I've always used Ethernet. You can initialize Ethernet via "udhcpc" to get a DHCP address. Then you need to create the BOOT.BIN image.
 
 ```
-$ petalinux-package --boot --fsbl=images/zynq_fsbl.elf --u-boot
+$ petalinux-package --boot --fsbl=images/linux/zynq_fsbl.elf --u-boot
 ```
 
 Now get that BOOT.BIN file onto the UUB somehow (wget, tftp, USB). There is an FTP server running on the UUB, too. That's the easiest way. (ftp, login, and put BOOT.BIN. BOOT.BIN will get put into /var/ftp). Next, do 
