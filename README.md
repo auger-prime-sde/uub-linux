@@ -5,7 +5,7 @@ PetaLinux distribution for UUB
 
 Replace $(PATH_TO_PETALINUX) and $(PATH_TO_XILINX) with your paths to the petalinux and Xilinx installs, respectively.
 
-1. Clone the repository (git clone --recursive https://github.com/barawn/uub-linux.git uub-linux). Note the '--recursive': the U-Boot repository is separate from the PetaLinux project. 
+1. Clone the repository (git clone --recursive https://github.com/auger-prime-sde/uub-linux.git uub-linux). Note the '--recursive': the U-Boot repository is separate from the PetaLinux project. 
 2. Source the PetaLinux settings (source $(PATH_TO_PETALINUX)/settings.sh)
 3. Source the Vivado settings (source $(PATH_TO_XILINX)/Vivado/2015.2/settings64.sh)
 4. Change into the repository (cd uub-linux)
@@ -205,7 +205,7 @@ The 'prebuilt 3' launches Linux. This will take MUCH LONGER to load! 5-10 minute
 
 ## Loading FSBL, U-Boot, and Linux into SPI flash
 
-You'll need some kind of access onto the UUB - Ethernet, or maybe USB. I've always used Ethernet. You can initialize Ethernet via "udhcpc" to get a DHCP address. Then you need to create the BOOT.BIN image.
+You'll need some kind of access onto the UUB - Ethernet, or maybe USB. You can send the images over serial as well using lrzsz, but it's very slow (~2 hours). I've always used Ethernet. You can initialize Ethernet via "udhcpc" to get a DHCP address. Then you need to create the BOOT.BIN image.
 
 ```
 $ petalinux-package --boot --fsbl=images/linux/zynq_fsbl.elf --u-boot
