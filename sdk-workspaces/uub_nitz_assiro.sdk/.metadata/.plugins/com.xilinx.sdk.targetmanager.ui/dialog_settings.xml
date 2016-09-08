@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="Auto Detect" key="uub_proto2_wrapper_hw_platform_0-device"/>
+	<item value="false" key="uub_proto2_wrapper_hw_platform_0-partial_bit"/>
+	<item value="uub_proto2_wrapper_hw_platform_0" key="programfpga.hwplatform"/>
+	<item value="uub_proto2_wrapper.bit" key="uub_proto2_wrapper_hw_platform_0-bitFile"/>
+	<item value="" key="uub_proto2_wrapper_hw_platform_0-bmmFile"/>
+	<item value="Local" key="uub_proto2_wrapper_hw_platform_0-target"/>
+</section>

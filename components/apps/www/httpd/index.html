@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Real time ADC from UUB</title>
+	<link href="auger.css" rel="stylesheet" type="text/css">
+	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+	<script language="javascript" type="text/javascript" src="jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery.flot.min.js"></script>
+
+		
+
+
+
+
+
+	<script type="text/javascript">
+
+	$(function() {
+		var data = [];
+		function getADCData() {			
+			$.getJSON("adc_data.json", function(response) {
+				data = [];
+				$.each(response, function(key, val) {
+					data.push(val);
+				});				
+			});		
+	
+			var res = [
+				{data: [], label:"Low ch1", lines:{show:true}},	
+				{data: [], label:"High ch2", lines:{show:true}},               
+                		{data: [], label:"Low ch3", lines:{show:true}},	
+				{data: [], label:"High ch4", lines:{show:true}},               
+                		{data: [], label:"Low ch5", lines:{show:true}},	
+				{data: [], label:"High ch6", lines:{show:true}},
+				{data: [], label:"Low ch7", lines:{show:true}},	
+				{data: [], label:"High ch8", lines:{show:true}},
+				{data: [], label:"High ch9", lines:{show:true}},	
+				{data: [], label:"Low ch10", lines:{show:true}},
+			];
+
+
+			
+			for (var i = 0; i < data.length; ++i) {
+				if (document.nomeForm.ch1.checked)res[0]['data'].push([i, parseInt(data[i]['adc0'])]);
+				if (document.nomeForm.ch2.checked)res[1]['data'].push([i, parseInt(data[i]['adc1'])]);
+				if (document.nomeForm.ch3.checked)res[2]['data'].push([i, parseInt(data[i]['adc2'])]);
+				if (document.nomeForm.ch4.checked)res[3]['data'].push([i, parseInt(data[i]['adc3'])]);
+				if (document.nomeForm.ch5.checked)res[4]['data'].push([i, parseInt(data[i]['adc4'])]);
+				if (document.nomeForm.ch6.checked)res[5]['data'].push([i, parseInt(data[i]['adc5'])]);
+				if (document.nomeForm.ch7.checked)res[6]['data'].push([i, parseInt(data[i]['adc6'])]);
+				if (document.nomeForm.ch8.checked)res[7]['data'].push([i, parseInt(data[i]['adc7'])]);
+				if (document.nomeForm.ch9.checked)res[8]['data'].push([i, parseInt(data[i]['adc8'])]);
+				if (document.nomeForm.ch10.checked)res[9]['data'].push([i, parseInt(data[i]['adc9'])]);
+			}			
+			//console.log(res);			
+			return res;			
+		}
+
+
+// hard-code color indices to prevent them from shifting as
+// countries are turned on/off
+
+		var i = 0;
+		$.each(data, function(key, val) {
+			val.color = i;
+			++i;
+		});
+
+// insert checkboxes 
+		var choiceContainer = $("#choices");
+		$.each(data, function(key, val) {
+			choiceContainer.append("<br/><input type='checkbox' name='" + key +
+				"' checked='checked' id='id" + key + "'></input>" +
+				"<label for='id" + key + "'>"
+				+ val.label + "</label>");
+		});
+
+		choiceContainer.find("input").click(plotAccordingToChoices);
+
+
+		function plotAccordingToChoices() {
+
+			var data = [];
+
+			choiceContainer.find("input:checked").each(function () {
+				var key = $(this).attr("name");
+				if (key && datasets[key]) {
+					data.push(datasets[key]);
+				}
+			});
+
+			if (data.length > 0) {
+				$.plot("#placeholder", data, {
+					yaxis: {
+						min: 0
+					},
+					xaxis: {
+						tickDecimals: 0
+					}
+				});
+			}
+		}
+
+		plotAccordingToChoices();
+
+
+		// Set up the control widget
+		var updateInterval = 50;  // tempo lettura file
+		$("#updateInterval").val(updateInterval).change(function () {
+			var v = $(this).val();
+			if (v && !isNaN(+v)) {
+				updateInterval = +v;
+				if (updateInterval < 100) {
+					updateInterval = 100;
+				} else if (updateInterval > 5000) {
+					updateInterval = 5000;
+				}
+				$(this).val("" + updateInterval);
+			}
+		});
+		var plot = $.plot("#placeholder", getADCData(), {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+		
+				min: 0,
+				max: 4095
+
+			},
+			xaxis: {
+				min: 0,
+				max: 100,	// NUMERO LETTURE SU ASSE X
+				show: true
+			},
+//			legend: {
+//				position: "nw"
+//			}
+		});
+		function update() {
+			plot.setData(getADCData());
+			// Since the axes don't change, we don't need to call plot.setupGrid()
+			plot.draw();
+			setTimeout(update, updateInterval);
+		}
+		update();
+
+	});
+
+	</script>
+    
+    
+  
+    
+</head>
+<body>
+	<div id="header">
+		<h2>Real time data from UUB 
+		<h1>10 channels wave form</h1>
+
+
+	<form name="nomeForm" method="get" action="action">
+		<input type="checkbox" name="ch1" value="ch1" checked="checked"/>CH1
+		<input type="checkbox" name="ch2" value="ch2" checked="checked"/>CH2
+		<input type="checkbox" name="ch3" value="ch3" checked="checked"/>CH3
+		<input type="checkbox" name="ch4" value="ch4" checked="checked"/>CH4
+		<input type="checkbox" name="ch5" value="ch6" checked="checked"/>CH5
+		<input type="checkbox" name="ch6" value="ch6" checked="checked"/>CH6
+		<input type="checkbox" name="ch7" value="ch7"/>CH7
+		<input type="checkbox" name="ch8" value="ch8"/>CH8
+		<input type="checkbox" name="ch9" value="ch9" checked="checked"/>CH9
+		<input type="checkbox" name="ch10" value="ch10" checked="checked"/>CH10<br />
+
+	</form>
+
+
+	</div>
+
+	<div id="content">
+		<div class="adc-container">
+			<div id="placeholder" class="adc-placeholder"></div>
+		</div>
+<!--
+
+		<p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:5em"> milliseconds</p>
+-->
+	</div>
+
+
+<p align="center"> 
+
+	<div id="footer">
+	<p align="center"> <img border="0" src="logo_infn.png" width="155" height="100">	
+	</div>
+
+</body>
+</html>
