@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>pmt_hv</name>
+	<comment>Created by SDK v2015.2</comment>
+	<projects>
+		<project>acquire</project>
+		<project>adc</project>
+		<project>clock_generator</project>
+		<project>DEVMEM</project>
+		<project>jitter_cleaner</project>
+		<project>led</project>
+		<project>led_dac</project>
+		<project>scope</project>
+		<project>slowc</project>
+		<project>ssd_test</project>
+		<project>trigger</project>
+		<project>uub_init</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+	</natures>
+</projectDescription>

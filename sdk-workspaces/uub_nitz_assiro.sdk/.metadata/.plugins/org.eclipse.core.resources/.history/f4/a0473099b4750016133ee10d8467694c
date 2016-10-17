@@ -1,0 +1,75 @@
+/*
+ * Copyright (c) 2012 Xilinx, Inc.  All rights reserved.
+ *
+ * Xilinx, Inc.
+ * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
+ * COURTESY TO YOU.  BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS
+ * ONE POSSIBLE   IMPLEMENTATION OF THIS FEATURE, APPLICATION OR
+ * STANDARD, XILINX IS MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION
+ * IS FREE FROM ANY CLAIMS OF INFRINGEMENT, AND YOU ARE RESPONSIBLE
+ * FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE FOR YOUR IMPLEMENTATION.
+ * XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH RESPECT TO
+ * THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO
+ * ANY WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE
+ * FROM CLAIMS OF INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ */
+
+#include <stdio.h>
+
+
+int main(int argc, char **argv)
+{
+    struct termios options;
+    int fd;
+
+    fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY | O_NDELAY);
+    if(fd == -1)
+    {
+        printf("Could not open port /dev/ttyS0\n");
+        return 1;
+    }
+
+    tcgetattr(fd, &options); //get port options
+
+    cfsetispeed(&options, B9600); //set input baud rate
+    cfsetospeed(&options, B9600); //set output baud rate
+
+    options.c_cflag |= (CLOCAL | CREAD); //enable receiver and set local mode
+
+    options.c_cflag &= ~PARENB;
+    options.c_cflag &= ~CSTOPB;
+    options.c_cflag &= ~CSIZE;
+    options.c_cflag |= CS8;
+    options.c_cflag &= ~CRTSCTS; //disable hardware flow control
+    options.c_cflag &= ~(ICANON | ECHO | ISIG); //set raw input
+
+    options.c_cflag |= IXOFF; //disable software flow control
+
+    tcsetattr(fd, TCSANOW, &options); //set new port options
+
+    sleep(1);
+    int rc,count;
+    int size = 8;
+    unsigned char buf[10];
+    FILE *fp = NULL;
+    char ch;
+    int i=0;
+    printf("enter the data you want to send");
+
+    while((ch=getchar())!='\n')
+    {
+        write(fd,&ch,1);
+    }
+    close(fd);
+
+    printf("Finished.\n");
+
+    return 0;
+}
+
+
+
+
+
