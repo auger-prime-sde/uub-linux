@@ -1,0 +1,9 @@
+#!/bin/sh
+#info version system
+/sbin/version
+
+
+
+
+
+

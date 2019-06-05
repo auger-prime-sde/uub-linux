@@ -1,0 +1,25 @@
+#!/bin/sh
+#update from USB to flash partition MTD2 in /boot
+
+if df | grep -q /usb$ ; then
+	echo "/usb already mounted"
+else
+	echo -n "Mounting USB disk on /usb... "
+	mkdir -p /usb
+fi
+	mount /dev/sda1 /usb 2>/dev/null 
+  	
+	mountboot
+	cp /usb/uub-update/image.ub /boot
+	cp /usb/uub-update/fpga.bit /boot
+	cp /usb/uub-update/system.dtb /boot
+	umountboot
+	umountusb
+	echo "UUB's flash memory is updated. Please, reboot the system!"
+
+
+
+
+
+
+

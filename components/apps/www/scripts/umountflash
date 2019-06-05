@@ -1,0 +1,16 @@
+#!/bin/sh
+#umount boot partition from /boot
+if ! df | grep -q /flash$ ; then
+  echo "/flash volume already umounted"
+  exit 0
+fi
+echo -n "Umounting /flash volume... please wait! "
+cd
+if umount  /flash ; then
+#  ubidetach -p /dev/mtd3 2>/dev/null >/dev/null
+  echo OK
+else
+  echo "ERROR"
+  exit 2
+fi
+

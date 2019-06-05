@@ -19,11 +19,11 @@ int acquire_evt(FILE *fp1, int fd , unsigned *page_offset) {
 
 	unsigned int bram[5];
 	int ADC0A[5], ADC0B[5];
-	bram[0] = 0x42000000;// ADC 1
-	bram[1] = 0x44000000;// ADC 2
-	bram[2] = 0x46000000;// ADC 3
-	bram[3] = 0x48000000;// ADC 4
-	bram[4] = 0x4A000000;// ADC 5
+	bram[0] = 0x50000000;// ADC 1
+	bram[1] = 0x51000000;// ADC 2
+	bram[2] = 0x52000000;// ADC 3
+	bram[3] = 0x53000000;// ADC 4
+	bram[4] = 0x54000000;// ADC 5
 
 	for(i=0;i<5;i++){
 		pt[i] = mmap(NULL, page_size*4, PROT_READ|PROT_WRITE, MAP_SHARED, fd, bram[i]);

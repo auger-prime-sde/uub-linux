@@ -1,0 +1,520 @@
+
+<!-- $Id$
+ *
+ * AUGER SCOPE
+ *
+ * This part of code is written in Javascript & HTML.
+ * Please visit http://en.wikipedia.org/wiki/JavaScript
+ *              http://en.wikipedia.org/wiki/HTML
+ * for more details on the languages used herein.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUB Scope</title>
+  <link href="http://172.16.17.114/assets/bootstrap-3.0.0/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="http://172.16.17.114/assets/style.css?6" rel="stylesheet" type="text/css">
+  <script src="jquery.min.js"></script>
+  <script src="http://172.16.17.114/assets/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+  <script src="jquery.flot.min.js"></script>
+  <script type="text/javascript">
+	
+		$(function() {
+		var data = [];
+		
+		var minX = 0;
+		var maxX = 2048;
+		var minY = 0;
+		var maxY = 4095;
+		
+		function getADCData() {			
+			$.getJSON("adc_data.json", function(response) {
+				data = [];
+				$.each(response, function(key, val) {
+					data.push(val);
+				});				
+			});		
+	
+			var res = [
+				{data: [], label:"Low ch1", lines:{show:true}},	
+				{data: [], label:"High ch2", lines:{show:true}},               
+                		{data: [], label:"Low ch3", lines:{show:true}},	
+				{data: [], label:"High ch4", lines:{show:true}},               
+                		{data: [], label:"Low ch5", lines:{show:true}},	
+				{data: [], label:"High ch6", lines:{show:true}},
+				{data: [], label:"Low ch7", lines:{show:true}},	
+				{data: [], label:"High ch8", lines:{show:true}},
+				{data: [], label:"Low ch9", lines:{show:true}},	
+				{data: [], label:"High ch10", lines:{show:true}},
+			];
+
+
+			
+			for (var i = 0; i < data.length; ++i) {
+				if (document.nomeForm.ch1.checked)res[0]['data'].push([i, parseInt(data[i]['adc0'])]);
+				if (document.nomeForm.ch2.checked)res[1]['data'].push([i, parseInt(data[i]['adc1'])]);
+				if (document.nomeForm.ch3.checked)res[2]['data'].push([i, parseInt(data[i]['adc2'])]);
+				if (document.nomeForm.ch4.checked)res[3]['data'].push([i, parseInt(data[i]['adc3'])]);
+				if (document.nomeForm.ch5.checked)res[4]['data'].push([i, parseInt(data[i]['adc4'])]);
+				if (document.nomeForm.ch6.checked)res[5]['data'].push([i, parseInt(data[i]['adc5'])]);
+				if (document.nomeForm.ch7.checked)res[6]['data'].push([i, parseInt(data[i]['adc6'])]);
+				if (document.nomeForm.ch8.checked)res[7]['data'].push([i, parseInt(data[i]['adc7'])]);
+				if (document.nomeForm.ch9.checked)res[8]['data'].push([i, parseInt(data[i]['adc8'])]);
+				if (document.nomeForm.ch10.checked)res[9]['data'].push([i, parseInt(data[i]['adc9'])]);
+			}			
+			//console.log(res);			
+			return res;			
+		}
+
+
+// hard-code color indices to prevent them from shifting as
+// countries are turned on/off
+
+		var i = 0;
+		$.each(data, function(key, val) {
+			val.color = i;
+			++i;
+		});
+
+
+
+		// Set up the control widget
+		var updateInterval = 50;  // tempo lettura file
+		$("#updateInterval").val(updateInterval).change(function () {
+			var v = $(this).val();
+			if (v && !isNaN(+v)) {
+				updateInterval = +v;
+				if (updateInterval < 100) {
+					updateInterval = 100;
+				} else if (updateInterval > 5000) {
+					updateInterval = 5000;
+				}
+				$(this).val("" + updateInterval);
+			}
+		});
+				
+		var plot = $.plot("#plot_holder", getADCData(), {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+		
+				min: minY,
+				max: maxY
+
+			},
+			xaxis: {
+				min: minX,
+				max: maxX,	//NUMERO LETTURE SU ASSE X
+				show: true
+			},
+//			legend: {
+//				position: "nw"
+//			}
+		});
+		
+		$("#range_x_minus").on('click', function(e) {
+			e.preventDefault();
+			minX = minX - 10;
+			//plot.changeXMin(minX)  ?? qualcosa del genere
+			console.log("eccomi!");
+		});
+		
+		$("#range_x_plus").on('click', function(e) {
+			e.preventDefault();
+			maxX = maxX + 10;
+			//plot.changeXMax(maxX)  ?? qualcosa del genere
+			console.log("eccomi!");
+		});
+		
+		function update() {
+		
+			//plot.changeXMin(minX)  ?? qualcosa del genere
+			//plot.changeXMax(maxX)  ?? qualcosa del genere
+		
+			//non ridisegnare grafico, tbd
+			var plot = $.plot("#plot_holder", getADCData(), {
+			series: {
+				shadowSize: 0	// Drawing is faster without shadows
+			},
+			yaxis: {
+		
+				min: minY,
+				max: maxY
+
+			},
+			xaxis: {
+				min: minX,
+				max: maxX,	//NUMERO LETTURE SU ASSE X
+				show: true
+			},
+//			legend: {
+//				position: "nw"
+//			}
+		});
+		
+		
+			plot.setData(getADCData());
+			// Since the axes don't change, we don't need to call plot.setupGrid()
+			plot.draw();
+			setTimeout(update, updateInterval);
+		}
+		update();
+
+	});
+  
+  </script>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <a id="btn_exit" class="pull-left" href="/index.html"><span class="glyphicon glyphicon-chevron-left" title="Exit" alt="Exit"></span></a>
+      <img class="logo pull-left" src="infn_logo.png">
+      <h2 class="page-title">UUB real time data</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div id="btn_toolbar" class="col-xs-12">
+        <button id="btn_autoscale_y" class="btn btn-primary btn-lg" data-autozoom="false" onclick="autoscaleY()">
+          <span class="glyphicon glyphicon-resize-vertical"></span> Autoscale
+        </button>
+        <button class="btn btn-primary btn-lg" onclick="resetZoom()">
+          <span class="glyphicon glyphicon-retweet"></span> Reset zoom
+        </button>  
+        <div id="selzoompan" class="btn-group" data-toggle="buttons">
+          <button id="btn_zoomin" class="btn btn-primary" onclick="selectTool.call(this, 'zoomin')" style="display: none">
+            <span class="glyphicon glyphicon-zoom-in"></span>
+          </button>
+          <button id="btn_zoomout" class="btn btn-default" onclick="selectTool.call(this, 'zoomout')" style="display: none">
+            <span class="glyphicon glyphicon-zoom-out"></span>
+          </button>
+          <button id="btn_pan" class="btn btn-default" onclick="selectTool.call(this, 'pan')" style="display: none">
+            <span class="glyphicon glyphicon-move"></span>
+          </button>
+          <button id="btn_zoompan" class="btn btn-primary btn-lg" onclick="selectTool.call(this, 'zoompan')" style="display: none">
+            <span class="glyphicon glyphicon-search"></span><span class="glyphicon glyphicon-move"></span>
+          </button>
+        </div>
+        <button id="btn_ch1" class="btn btn-primary btn-lg" data-checked="true" onclick="setVisibleChannels(this)">Channel 1</button>
+        <button id="btn_ch2" class="btn btn-primary btn-lg" data-checked="true" onclick="setVisibleChannels(this)">Channel 2</button>
+        <button id="btn_auto" class="btn btn-primary btn-lg" onclick="serverAutoScale()">AUTO</button>
+        <button id="btn_avg" class="btn btn-default btn-lg" onclick="setAvgAtDec()">Averaging</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-8">
+        <div class="graph-holder well well-small">
+          <div id="ytitle">Voltage [ V ]</div>
+          <div id="trigger_cnv_holder">
+            <canvas id="trigger_canvas" width="25" height="460"></canvas>
+            <div id="trigger_tooltip"></div>
+          </div>
+          <div id="plot_holder"></div>
+          <div id="xtitle"></div>
+        </div>
+      </div>
+      <div class="panel-group col-xs-12 col-sm-12 col-md-4" id="accordion">
+	  
+		<form name="nomeForm" method="get" action="action">
+		<input type="checkbox" name="ch1" value="ch1" checked="checked"/>CH1
+		<input type="checkbox" name="ch2" value="ch2" checked="checked"/>CH2
+		<input type="checkbox" name="ch3" value="ch3" checked="checked"/>CH3
+		<input type="checkbox" name="ch4" value="ch4" checked="checked"/>CH4
+		<input type="checkbox" name="ch5" value="ch6" checked="checked"/>CH5
+		<input type="checkbox" name="ch6" value="ch6" checked="checked"/>CH6
+		<input type="checkbox" name="ch7" value="ch7" checked="checked"/>CH7
+		<input type="checkbox" name="ch8" value="ch8" checked="checked"/>CH8
+		<input type="checkbox" name="ch9" value="ch9" checked="checked"/>CH9
+		<input type="checkbox" name="ch10" value="ch10" checked="checked"/>CH10<br />
+
+	</form>
+	  
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#trigger">
+                Trigger
+              </a>
+            </h4>
+          </div>
+          <div id="trigger" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" onsubmit="return false;">
+                <div class="form-group">
+                  <label for="trig_source" class="col-xs-4 control-label">Source:</label>
+                  <div class="col-xs-8">
+                    <select id="trig_source" class="form-control">
+                      <option value="0">Channel 1</option>
+                      <option value="1">Channel 2</option>
+                      <option value="2">External</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="trig_mode" class="col-xs-4 control-label">Mode:</label>
+                  <div class="col-xs-8">
+                    <select id="trig_mode" class="form-control">
+                      <option value="0">Auto</option>
+                      <option value="1">Normal</option>
+                      <option value="2">Single</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="trig_edge" class="col-xs-4 control-label">Edge:</label>
+                  <div class="col-xs-8">
+                    <select id="trig_edge" class="form-control">
+                      <option value="0">Rising</option>
+                      <option value="1">Falling</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="trig_level" class="col-xs-4 control-label">Level:</label>
+                  <div class="col-xs-5">
+                    <input type="text" id="trig_level" value="0" class="form-control" autocomplete="off">
+                    <span id="apply_trig_level" class="input-group-btn" style="display: none;">
+                      <button class="btn btn-primary btn-lg" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                    </span>
+                  </div>
+                  <div id="trig_lev_units" class="col-xs-3" style="padding: 7px 0 0;">V</div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col-xs-4"> </div>
+                <div class="col-xs-5">
+                  <button id="btn_single" class="btn btn-primary" onclick="singleUpdate()" disabled>
+                    <span class="glyphicon glyphicon-step-forward"></span> Single
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#range">
+                Axys
+              </a>
+            </h4>
+          </div>
+          <div id="range" class="panel-collapse collapse">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" onsubmit="return false;">
+                <div class="form-group">
+                  <label class="col-xs-4 col-sm-3 control-label" style="padding-top: 35px;">Min:</label>
+                  <div class="col-xs-8 col-sm-9">
+                    <div class="row">
+                      <div class="col-xs-6 text-center">
+                        <div class="group-label" style="padding-bottom: 10px;">X axis</div>
+                        <div class="btn-group" style="margin-bottom: -3px;">
+                          <button id="range_x_minus" type="button" class="btn btn-primary btn-lg range-btn-left">
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </button>
+                          <button id="range_x_plus" type="button" class="btn btn-primary btn-lg range-btn-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                          </button>
+                        </div>
+                        <div>
+                          <span id="range_x" class="badge range-badge">-</span>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 text-center">
+                        <div class="group-label" style="padding-bottom: 10px;">Y axis</div>
+                        <div class="btn-group" style="margin-bottom: -3px;">
+                          <button id="range_y_minus" type="button" class="btn btn-primary btn-lg range-btn-left">
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </button>
+                          <button id="range_y_plus" type="button" class="btn btn-primary btn-lg range-btn-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                          </button>
+                        </div>
+                        <div>
+                          <span id="range_y" class="badge range-badge">-</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-4 col-sm-3 control-label">Max:</label>
+                  <div class="col-xs-8 col-sm-9">
+                    <div class="row">
+                      <div class="col-xs-6 text-center">
+                        <div class="btn-group" style="margin-bottom: -3px;">
+                          <button id="offset_x_minus" type="button" class="btn btn-primary btn-lg range-btn-left">
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </button>
+                          <button id="offset_x_plus" type="button" class="btn btn-primary btn-lg range-btn-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 text-center">
+                        <div class="btn-group" style="margin-bottom: -3px;">
+                          <button id="offset_y_minus" type="button" class="btn btn-primary btn-lg range-btn-left">
+                            <span class="glyphicon glyphicon-minus"></span>
+                          </button>
+                          <button id="offset_y_plus" type="button" class="btn btn-primary btn-lg range-btn-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#measure">
+                Measure
+              </a>
+            </h4>
+          </div>
+          <div id="measure" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="row group-label">
+                <div class="col-xs-6" style="text-align: center">Channel 1</div>
+                <div class="col-xs-6" style="text-align: center">Channel 2</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Min:</div>
+                <div class="col-xs-3"><span id="info_ch1_min">-</span><span class="unit">V</span></div>
+                <div class="col-xs-3 txt-right">Min:</div>
+                <div class="col-xs-3"><span id="info_ch2_min">-</span><span class="unit">V</span></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Max:</div>
+                <div class="col-xs-3"><span id="info_ch1_max">-</span><span class="unit">V</span></div>
+                <div class="col-xs-3 txt-right">Max:</div>
+                <div class="col-xs-3"><span id="info_ch2_max">-</span><span class="unit">V</span></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Amp:</div>
+                <div class="col-xs-3"><span id="info_ch1_amp">-</span><span class="unit">Vpp</span></div>
+                <div class="col-xs-3 txt-right">Amp:</div>
+                <div class="col-xs-3"><span id="info_ch2_amp">-</span><span class="unit">Vpp</span></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Avg:</div>
+                <div class="col-xs-3"><span id="info_ch1_avg">-</span><span class="unit">V</span></div>
+                <div class="col-xs-3 txt-right">Avg:</div>
+                <div class="col-xs-3"><span id="info_ch2_avg">-</span><span class="unit">V</span></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Freq:</div>
+                <div class="col-xs-3" id="info_ch1_freq">-<span class="unit">Hz</span></div>
+                <div class="col-xs-3 txt-right">Freq:</div>
+                <div class="col-xs-3" id="info_ch2_freq">-<span class="unit">Hz</span></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 txt-right">Period:</div>
+                <div class="col-xs-3" id="info_ch1_period">-<span class="unit">s</span></div>
+                <div class="col-xs-3 txt-right">Period:</div>
+                <div class="col-xs-3" id="info_ch2_period">-<span class="unit">s</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#gain">
+                Gain settings
+              </a>
+            </h4>
+          </div>
+          <div id="gain" class="panel-collapse collapse">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" onsubmit="return false;">
+                <div class="group-label" style="padding-bottom: 10px;">Channel 1</div>
+                <div class="form-group">
+                  <label for="gain_ch1_att" class="col-xs-4 col-sm-6 control-label">Probe attenuation:</label>
+                  <div class="col-xs-4 col-sm-5">
+                    <select class="form-control" id="gain_ch1_att">
+                      <option value="0">1x</option>
+                      <option value="1">10x</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="gain_ch1_sett" class="col-xs-4 col-sm-6 control-label">Gain setting:</label>
+                  <div class="col-xs-4 col-sm-5">
+                    <select class="form-control" id="gain_ch1_sett">
+                      <option value="0">LV</option>
+                      <option value="1">HV</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="group-label" style="padding: 10px 0;">Channel 2</div>
+                <div class="form-group">
+                  <label for="gain_ch2_att" class="col-xs-4 col-sm-6 control-label">Probe attenuation:</label>
+                  <div class="col-xs-4 col-sm-5">
+                    <select class="form-control" id="gain_ch2_att">
+                      <option value="0">1x</option>
+                      <option value="1">10x</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="gain_ch2_sett" class="col-xs-4 col-sm-6 control-label">Gain setting:</label>
+                  <div class="col-xs-4 col-sm-5">
+                    <select class="form-control" id="gain_ch2_sett">
+                      <option value="0">LV</option>
+                      <option value="1">HV</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer clearfix">
+      <p class="pull-right" style="margin: 4px 0 0">&copy; 2016 - Auger</p>
+    </div>
+  </div>
+  <div id="modal_err" class="modal" tabindex="-1" role="dialog" aria-labelledby="modal_err_label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal_err_label">Application error</h4>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-close-modal" id="btn_ignore">Ignore</button>
+          <button type="button" class="btn btn-default" id="btn_retry_get">Retry</button>
+          <button type="button" class="btn btn-primary btn-app-restart">Restart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal_app" class="modal" tabindex="-1" role="dialog" aria-labelledby="modal_app_label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal_app_label">Application stopped</h4>
+        </div>
+        <div class="modal-body">
+          The <strong><span class="app-id"></span></strong> application was stopped. The current started application is <strong><span id="new_app_id"></span></strong>.<br />
+          Do you want to switch to newly started application or to restart <strong><span class="app-id"></span></strong>?
+        </div>
+        <div class="modal-footer">
+          <a href="/index.html" class="btn btn-danger pull-left">Exit app</a>
+          <button type="button" class="btn btn-default" id="btn_switch_app">Switch</button>
+          <button type="button" class="btn btn-primary btn-app-restart">Restart</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+</body>
+</html>

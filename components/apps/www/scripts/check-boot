@@ -1,0 +1,24 @@
+#!/bin/sh
+#written by R.Assiro - 04/2019
+#check boot argument - if present recovery it means the /boot doesn't work, thus it trasfers /recovery to /boot for fixing
+
+if grep -q -w recovery /proc/cmdline ; then
+
+		echo "ATTENTION!! AUTOMATIC REPAIR OF /BOOT CONTENT IS RUNNING"
+		mountrecovery
+		mountboot	
+		cp -p /recovery/image.ub /boot
+		cp -p /recovery/fpga.bit /boot
+		cp -p /recovery/system.dtb /boot
+		umountboot
+		umountrecovery
+		echo "UUB's image and bitstream copied from /recovery to /boot volume!"
+		echo "Please, reboot the UUB soon!"
+		export PS1="UUB-RECOVERY-MODE>>"
+fi
+
+
+
+
+
+

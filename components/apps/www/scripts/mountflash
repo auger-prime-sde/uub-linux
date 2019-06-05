@@ -1,0 +1,29 @@
+#!/bin/sh
+#written by R.Assiro - 10/2016
+#mount flash partition MTD3 in /flash
+if df | grep -q /flash$ ; then
+  echo "/flash volume already mounted"
+  exit 0
+fi
+#echo -n "Attaching mtd3 partition... "
+#ubidetach -p /dev/mtd3 2>/dev/null >/dev/null
+#if ubiattach -p /dev/mtd3 >/dev/null ; then
+#  echo OK
+#else
+#  	echo "ERROR 1"
+#	echo "ERROR ... flash volume will be formatted. Please wait!"
+#	flash_erase /dev/mtd3 0 0
+#	ubiattach -p /dev/mtd3
+#	ubimkvol /dev/ubi0 -m -N flash
+#	ubidetach -p /dev/mtd3
+#  	exit 1
+#fi
+
+echo -n "Mounting ubi0:flash on /flash... "
+if mount -t ubifs ubi0:flash /flash ; then
+  	echo OK
+else
+	echo "ERROR 2"
+  	exit 2
+fi
+

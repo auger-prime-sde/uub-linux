@@ -19,7 +19,7 @@ int set_hv(int hv)
 
 
 	int fd, file,i,j, Status, data_trig;
-	int int_trig =  0x41200000;
+	int int_trig =  0x55000000;
 	int value = 0;
 	unsigned page_addr, page_offset;
 	void *ptrt;

@@ -1,0 +1,9 @@
+#!/bin/sh
+#info version system
+/etc/init.d/sys_ver
+
+
+
+
+
+

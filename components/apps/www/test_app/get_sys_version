@@ -1,0 +1,9 @@
+#!/bin/sh
+#info version system
+cat /etc/version_system
+
+
+
+
+
+

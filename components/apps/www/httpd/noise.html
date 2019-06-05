@@ -7,13 +7,6 @@
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
 	<script language="javascript" type="text/javascript" src="jquery.min.js"></script>
 	<script language="javascript" type="text/javascript" src="jquery.flot.min.js"></script>
-
-		
-
-
-
-
-
 	<script type="text/javascript">
 
 	$(function() {
@@ -24,33 +17,32 @@
 				$.each(response, function(key, val) {
 					data.push(val);
 				});				
-			});		
+			});			
 			var res = [
 				{data: [], label:"Low ch1", lines:{show:true}},	
 				{data: [], label:"High ch2", lines:{show:true}},               
-                		{data: [], label:"Low ch3", lines:{show:true}},	
+                {data: [], label:"Low ch3", lines:{show:true}},	
 				{data: [], label:"High ch4", lines:{show:true}},               
-                		{data: [], label:"Low ch5", lines:{show:true}},	
-				{data: [], label:"High ch6", lines:{show:true}},
-				{data: [], label:"Low ch7", lines:{show:true}},	
-				{data: [], label:"High ch8", lines:{show:true}},
-				{data: [], label:"High ch9", lines:{show:true}},	
-				{data: [], label:"Low ch10", lines:{show:true}},
+//                {data: [], label:"Low ch5", lines:{show:true}},	
+//				{data: [], label:"High ch6", lines:{show:true}},
+//				{data: [], label:"Low ch7", lines:{show:true}},	
+//				{data: [], label:"High ch8", lines:{show:true}},
+//				{data: [], label:"Low ch9", lines:{show:true}},	
+//				{data: [], label:"High ch10", lines:{show:true}},
 			];
-
-
 			
 			for (var i = 0; i < data.length; ++i) {
-				if (document.nomeForm.ch1.checked)res[0]['data'].push([i, parseInt(data[i]['adc0'])]);
-				if (document.nomeForm.ch2.checked)res[1]['data'].push([i, parseInt(data[i]['adc1'])]);
-				if (document.nomeForm.ch3.checked)res[2]['data'].push([i, parseInt(data[i]['adc2'])]);
-				if (document.nomeForm.ch4.checked)res[3]['data'].push([i, parseInt(data[i]['adc3'])]);
-				if (document.nomeForm.ch5.checked)res[4]['data'].push([i, parseInt(data[i]['adc4'])]);
-				if (document.nomeForm.ch6.checked)res[5]['data'].push([i, parseInt(data[i]['adc5'])]);
-				if (document.nomeForm.ch7.checked)res[6]['data'].push([i, parseInt(data[i]['adc6'])]);
-				if (document.nomeForm.ch8.checked)res[7]['data'].push([i, parseInt(data[i]['adc7'])]);
-				if (document.nomeForm.ch9.checked)res[8]['data'].push([i, parseInt(data[i]['adc8'])]);
-				if (document.nomeForm.ch10.checked)res[9]['data'].push([i, parseInt(data[i]['adc9'])]);
+//				res[0]['data'].push([i, parseInt(data[i]['adc0'])]);
+//				res[1]['data'].push([i, parseInt(data[i]['adc1'])]);
+				res[2]['data'].push([i, parseInt(data[i]['adc2'])]);
+               	res[3]['data'].push([i, parseInt(data[i]['adc3'])]);
+//				res[4]['data'].push([i, parseInt(data[i]['adc4'])]);
+//				res[5]['data'].push([i, parseInt(data[i]['adc5'])]);
+
+               	//		res[6]['data'].push([i, parseInt(data[i]['adc6'])]);//ok forma ok offset
+               	//		res[7]['data'].push([i, parseInt(data[i]['adc7'])]);//controllare rete retroazione
+               	//		res[8]['data'].push([i, parseInt(data[i]['adc8'])]);//ok forma ok offset
+               	//		res[9]['data'].push([i, parseInt(data[i]['adc9'])]);//controllare rete retroazione
 			}			
 			//console.log(res);			
 			return res;			
@@ -124,13 +116,13 @@
 			},
 			yaxis: {
 		
-				min: 0,
-				max: 4095
+				min: 3740,
+				max: 3870
 
 			},
 			xaxis: {
 				min: 0,
-				max: 1200,	// NUMERO LETTURE SU ASSE X
+				max: 4095,	// NUMERO LETTURE SU ASSE X
 				show: true
 			},
 //			legend: {
@@ -156,26 +148,10 @@
 <body>
 	<div id="header">
 		<h2>Real time data from UUB 
+
+
 		<h1>10 channels wave form</h1>
-
-
-	<form name="nomeForm" method="get" action="action">
-		<input type="checkbox" name="ch1" value="ch1" checked="checked"/>CH1
-		<input type="checkbox" name="ch2" value="ch2" checked="checked"/>CH2
-		<input type="checkbox" name="ch3" value="ch3" checked="checked"/>CH3
-		<input type="checkbox" name="ch4" value="ch4" checked="checked"/>CH4
-		<input type="checkbox" name="ch5" value="ch6" checked="checked"/>CH5
-		<input type="checkbox" name="ch6" value="ch6" checked="checked"/>CH6
-		<input type="checkbox" name="ch7" value="ch7"/>CH7
-		<input type="checkbox" name="ch8" value="ch8"/>CH8
-		<input type="checkbox" name="ch9" value="ch9" checked="checked"/>CH9
-		<input type="checkbox" name="ch10" value="ch10" checked="checked"/>CH10<br />
-
-	</form>
-
-
 	</div>
-
 	<div id="content">
 		<div class="adc-container">
 			<div id="placeholder" class="adc-placeholder"></div>

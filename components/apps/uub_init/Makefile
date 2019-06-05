@@ -24,7 +24,7 @@ clean:
 install: $(APP)
 	$(TARGETINST) -d $(APP) /bin/$(APP)
 	$(TARGETINST) -d -p 0755 uub_init /etc/init.d/uub_init
-	$(TARGETINST) -s /etc/init.d/uub_init /etc/rc5.d/S99uub_init
+	$(TARGETINST) -s /etc/init.d/uub_init /etc/rc5.d/S95uub_init
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<

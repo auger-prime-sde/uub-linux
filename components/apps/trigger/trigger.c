@@ -20,7 +20,7 @@ int threshold1, threshold2, threshold3, threshold4, mode;
 int main(int argc, char *argv[])
 {
 	int fd, file,i,j, Status, data_trig;
-	int trig_tresh =  0x41220000;
+	int trig_tresh =  0x55001000;
 	int value = 0;
 	unsigned page_addr, page_offset;
 	void *ptrt;
@@ -64,7 +64,6 @@ int main(int argc, char *argv[])
 	page_offset = trig_tresh - page_addr;
 	ptrt = mmap(NULL, page_size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, page_addr);
 
-
     value= value | 0x80000000;//write values in fpga registers
 //	value = 0b10100000000010000000001000000000;
 	printf("%x\n",value);
@@ -72,7 +71,7 @@ int main(int argc, char *argv[])
 	usleep(1);
     value= value & 0x7fffffff;
 //	value = 0b00100000000010000000001000000000;
-	printf("%x\n",value);
+//	printf("%x\n",value);
 	*((unsigned *)(ptrt + page_offset)) = value;
 
     printf("Setup thresholds..... Done!\n");

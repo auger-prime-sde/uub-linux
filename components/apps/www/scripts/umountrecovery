@@ -1,0 +1,16 @@
+#!/bin/sh
+#umount MTD2 partition and recovery volume from /boot
+if ! df | grep -q /recovery$ ; then
+  echo "/recovery already umounted"
+  exit 0
+fi
+echo -n "Umounting recovery volume... please wait! "
+cd
+if umount  /recovery ; then
+#  ubidetach -p /dev/mtd2 2>/dev/null >/dev/null
+  echo OK
+else
+  echo "ERROR"
+  exit 2
+fi
+

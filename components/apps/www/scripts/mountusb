@@ -1,0 +1,26 @@
+#!/bin/sh
+#mount USB partition on /usb
+
+echo -n "Mounting USB disk on /usb... "
+
+
+if df | grep -q /usb$ ; then
+  echo "/usb already mounted"
+  exit 0
+fi	
+
+
+
+mkdir -p /usb
+
+if mount /dev/sda1 /usb 2>/dev/null ; then
+  echo OK
+else
+   if mount /dev/sda /usb 2>/dev/null ; then
+     echo OK
+   else 
+     echo "ERROR"
+     exit 2
+   fi
+fi
+

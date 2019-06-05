@@ -1,0 +1,211 @@
+
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.flot.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+<link href="css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+  
+<link href="css/bootstrap.css" rel="stylesheet">
+
+<script type="text/javascript"src="js/Drinks.js"></script> 
+<body background="images/background.png">
+
+
+<script> 			
+			var data = Drinks.createManager(); 
+			data.href='cgi-bin/getdata.cgi?action=hv-measure'; 
+            		data.refresh="1"	
+			data.start(); 
+			
+$(function() {			
+		// PMT1
+		$("#disable1").on('click', function(e) {
+			e.preventDefault();			
+			var geturl = "cgi-bin/getdata.cgi"
+			var params = {
+				action: "slowc",
+				arg1: "-p1",
+				arg2: "-v0"			
+			}
+			$.get(geturl, params, function (data) {
+			console.log(params);
+			});
+		});	
+		
+		// PMT2
+		$("#disable2").on('click', function(e) {
+			e.preventDefault();			
+			var geturl = "cgi-bin/getdata.cgi"
+			var params = {
+				action: "slowc",
+				arg1: "-p2",
+				arg2: "-v0"			
+			}
+			$.get(geturl, params, function (data) {
+			});
+		});	
+		
+		// PMT3
+		$("#disable3").on('click', function(e) {
+			e.preventDefault();			
+			var geturl = "cgi-bin/getdata.cgi"
+			var params = {
+				action: "slowc",
+				arg1: "-p3",
+				arg2: "-v0"			
+			}
+			$.get(geturl, params, function (data) {
+			});
+		});			
+		// SSD
+		$("#disable4").on('click', function(e) {
+			e.preventDefault();			
+			var geturl = "cgi-bin/getdata.cgi"
+			var params = {
+				action: "slowc",
+				arg1: "-p4",
+				arg2: "-v0"			
+			}
+			$.get(geturl, params, function (data) {
+			});
+		});		
+		
+		// small PMT
+		$("#disable5").on('click', function(e) {
+			e.preventDefault();			
+			var geturl = "cgi-bin/getdata.cgi"
+			var params = {
+				action: "slowc",
+				arg1: "-p5",
+				arg2: "-v0"			
+			}
+			$.get(geturl, params, function (data) {
+			});
+		});			
+});
+		
+</script> 
+    	
+<title>Auger Prime</title>
+</head>
+
+<body>
+
+<p align="center"><img border="0" src="images/auger_banner.jpg" width="900" height="150"><br>
+<font color = "white" size="6"><b>UUB High voltage monitor</b></a>
+<br>
+<led id="l1" color="green" value="1" x="750" y="190"onload="setInterval(function(){this.toggle();}.bind(this), 1000);"></led>
+
+<table width="65%" border="0" align="center">
+
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT1_HVM" type="analog" range_from="1700" max_range="2000" range_to="2000" text="Volts PMT1" ;"> 
+<display id="PMT1_HVM" type="digital" cipher="4" max_range="3000" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT1_CM" type="analog" range_from="70" max_range="100" range_to="100" text="uA PMT1" ;"> 
+<display id="PMT1_CM" type="digital" cipher="3" significative="2"  max_range="300" width="80" height="35" x="200" y="120" link></display> </td>
+
+<td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<button id="disable1" class="btn btn-default btn-lg" >Stop<br>High Voltage<br>PMT1</button>	</td>
+
+<!-- example
+<td width="30%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<knob id="k5" display="out" max_range="2000" style="float:left;" type="analog" radius="70"></knob>
+<led id="led"></led>
+<switch id="sw" onchange="if(this.value==1){led.on();}else{led.off();}"></switch> 
+-->
+</td>
+
+</tr>
+
+
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT2_HVM" type="analog" range_from="1700" max_range="2000" range_to="2000" text="Volts PMT2" ;"> 
+<display id="PMT2_HVM" type="digital" cipher="4" max_range="3000" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT2_CM" type="analog" range_from="70" max_range="100" range_to="100" text="uA PMT2" ;"> 
+<display id="PMT2_CM" type="digital" cipher="3" significative="2"  max_range="300" width="80" height="35" x="200" y="120" link></display> </td>
+<td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<button id="disable2" class="btn btn-default btn-lg" >Stop<br>High Voltage<br>PMT2</button>	</td>
+</tr>
+
+
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT3_HVM" type="analog" range_from="1700" max_range="2000" range_to="2000" text="Volts PMT3" ;"> 
+<display id="PMT3_HVM" type="digital" cipher="4" max_range="3000" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT3_CM" type="analog" range_from="70" max_range="100" range_to="100" text="uA PMT3" ;"> 
+<display id="PMT3_CM" type="digital" cipher="3"  significative="2" max_range="300" width="80" height="35" x="200" y="120" link></display> </td>
+<td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<button id="disable3" class="btn btn-default btn-lg" >Stop<br>High Voltage<br>PMT3</button>	</td>
+</tr>
+</table>
+
+<font color = "white" size="6"><b>SSD and Smal PMT High voltage monitor</b></a>
+
+<table width="65%" border="0" align="center">
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT4_HVM" type="analog" range_from="1700" max_range="2000" range_to="2000" text="Volts SSD" ;"> 
+<display id="PMT4_HVM" type="digital" cipher="4" max_range="3000" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT4_CM" type="analog" range_from="60" max_range="100" range_to="100" text="uA SSD" ;"> 
+<display id="PMT4_CM" type="digital" cipher="3" significative="2" max_range="300" width="80" height="35" x="200" y="120" link></display> </td>
+<td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<button id="disable4" class="btn btn-default btn-lg" >Stop<br>High Voltage<br>SSD</button>	</td>
+</tr>	
+
+
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT5_HVM" type="analog" range_from="1700" max_range="2000" range_to="2000" text="Volts Sm-PMT" ;"> 
+<display id="PMT5_HVM" type="digital" cipher="4" max_range="3000" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT5_CM" type="analog" range_from="60" max_range="100" range_to="100" text="uA Sm-PMT" ;"> 
+<display id="PMT5_CM"type="digital" cipher="3" significative="2" max_range="300" width="80" height="35" x="200" y="120" link></display> </td>
+<td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">	
+<button id="disable5" class="btn btn-default btn-lg" >Stop<br>High Voltage<br>Small PMT</button>	</td>
+</tr>	
+
+</table>
+
+<font color = "white" size="6"><b>SiPM voltage monitor</b></a>
+
+<table width="50%" border="0" align="center">
+
+<tr>
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">				
+<display id="PMT6_HVM" type="analog"   range_from="65" range_to="80" max_range="80"  text="Volts SiPM" ;"> 
+<display id="PMT6_HVM" type="digital" cipher="3" max_range="80" width="80" height="35" x="200" y="120" link></display> </td>			
+
+ <td width="25%" ><font color="#FFFFFF"size="5" ><p align="center">			
+<display id="PMT6_CM" type="analog" range_from="7" max_range="10" range_to="10" text="uA SiPM" ;"> 
+<display id="PMT6_CM" type="digital" cipher="3" significative="2" max_range="30.0" width="80" height="35" x="200" y="120" link></display> </td>
+
+<td width="25%" ><font size="4" color = "red"><p align="center">	
+<display id="PMT6_TM" range_from="40" min_range = "-10" max_range="60" range_to="60" text="SiPM Temperature" ;"> 
+<display id="PMT6_TM" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display>SiPM Temperature</td>	
+
+</tr>	
+</table>
+<hr width="60%">
+<p align="center"><font color = "white" size="4">Auger Prime - 2017 </p>
+<p align="center"> <font color = "grey" size="2">R. Assiro Embedded Web Server design</b></a>
+      
+ 
+
+</body>
+
+</html>

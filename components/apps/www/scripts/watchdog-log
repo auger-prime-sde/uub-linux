@@ -1,0 +1,23 @@
+#!/bin/sh
+#info contents watchdog.log file
+
+echo 
+echo "--- WATCHDOG LOG FILE EVENTS ---"
+echo
+
+mountflash > /dev/null
+
+cd /flash
+
+cat watchdog.log
+
+cd ..
+
+umountflash > /dev/null
+
+echo "####################################################"
+
+
+
+
+

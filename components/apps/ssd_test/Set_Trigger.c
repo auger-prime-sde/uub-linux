@@ -14,7 +14,7 @@
 int set_trigger(int threshold1, int threshold2, int threshold3, int mode)
 {
 	int fd;
-	int trig_tresh =  0x41220000;
+	int trig_tresh =  0x55001000;
 	int value = 0;
 	unsigned page_addr, page_offset;
 	void *ptrt;

@@ -1,0 +1,5 @@
+#!/bin/bash
+# restart system with watchdog disabled nov. 2018 R.Assiro
+echo "UUB is restarting... please weait!"
+slowc -w 1
+reboot

@@ -1,0 +1,31 @@
+#!/bin/sh
+#written by R.Assiro - 10/2016
+#recovery system - copy image.ub from recovery volume to itbs volume
+#script di salvataggio immagine di sistema da vol recovery verso vol itbs. Salvataggio se sistema non dovesse partire
+
+echo "Create /flash volume in MTD3 partition..."
+umountboot
+umountrecovery
+ubidetach -p /dev/mtd3
+
+ubidetach -p /dev/mtd2
+
+echo "Erasing MTD3 partition...PLEASE WAIT!"
+echo
+flash_erase /dev/mtd3 0 0
+
+
+ubiattach -p /dev/mtd3
+
+ubimkvol /dev/ubi0 -m -N flash
+
+ubidetach -p /dev/mtd3
+
+echo "Volume created! Please reboot the system!"
+
+
+
+
+
+
+

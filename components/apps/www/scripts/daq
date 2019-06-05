@@ -1,0 +1,28 @@
+#!/bin/bash
+CMD="$1"
+NO_RUN_FILE="/home/root/daq/no_run"
+NO_RUN="$(cat $NO_RUN_FILE 2>/dev/null)"
+case "$CMD" in
+   on)
+	rm $NO_RUN_FILE 2>/dev/null
+	killall scope 2>/dev/null
+        ;;
+   off)
+	:>$NO_RUN_FILE
+	killall -quit controll 2>/dev/null
+        ;;
+   status)
+        echo STATUS
+        ;;
+   *)
+  	echo
+  	echo "Usage:"
+  	echo "         daq  on|off|"
+  	echo
+  	;;
+esac    
+    
+    
+
+
+

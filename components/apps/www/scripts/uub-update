@@ -1,0 +1,70 @@
+#!/bin/sh
+#written by R.Assiro - 09/2016
+#Update image.ub and fpga.bit from server by tftp 
+#Upgrade on 03/2017 - ip number by argument
+
+IP=$1
+if  [ -n "$IP" ]; then
+	SERVERIP=$IP
+else
+	SERVERIP = "192.168.1.136" # IP number of tftp server in observatory's network	
+fi
+echo "UUB Upgrade from TFTP server: $SERVERIP"
+
+FILES="image.ub fpga.bit"
+
+#update from USB to flash partition MTD2 in /boot
+if df | grep -q /usb$ ; then
+	echo "/usb already mounted"
+else
+	echo -n "Mounting USB disk on /usb... "
+	mkdir -p /usb
+fi
+
+if mount /dev/sda1 /usb 2>/dev/null ; then
+  	echo OK
+	mountboot
+	mountrecovery
+
+	cp -p /usb/uub-update/image.ub /boot
+	cp -p /usb/uub-update/fpga.bit /boot
+#	cp -p /usb/uub-update/image.ub /recovery
+#	cp -p /usb/uub-update/fpga.bit /recovery
+
+	umountrecovery 
+	umountboot
+	umountusb
+	echo "UUB's flash memory is updated from USB. Please, reboot the system!"
+	exit 0
+
+else
+  	echo "No USB disk present!"
+	echo
+  	echo "Updating UUB from server $SERVERIP ... please wait!"
+	mountboot
+	mountrecovery
+
+	cd /var/ftp
+	for FILE in $FILES ; do
+  		echo "Downloading $FILE ..."
+  		if tftp -g -l $FILE -r $FILE $SERVERIP ; then
+    			echo "Copying $FILE into /boot ..."
+    			cp -v -p $FILE /boot
+#			cp -v -p $FILE /recovery
+  		else
+    			echo "ERROR: Failed to download $FILE"
+    			umountboot
+    			exit 0
+  		fi
+	done
+	umountrecovery 
+	umountboot
+	echo "UUB Updated from TFTP server. Please, reboot the system!"
+	exit 2
+fi  	
+	
+
+
+
+
+

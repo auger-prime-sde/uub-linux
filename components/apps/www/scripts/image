@@ -1,0 +1,16 @@
+#!/bin/sh
+#written by R.Assiro - 02/2018
+#Update image.ub from my linux virtual machine 
+
+
+mountboot
+
+cd /boot
+
+tftp -g -l image.ub -r image.ub 172.16.17.198
+
+cd ..
+
+umountboot
+
+echo "Petalinux image replaced! - Restart the UUB"

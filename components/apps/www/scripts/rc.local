@@ -1,0 +1,5 @@
+#!/bin/bash
+#Please put follow your application programs you want run at boot
+#example: name2run > /dev/null 2>/dev/null &
+
+

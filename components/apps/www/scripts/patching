@@ -1,0 +1,115 @@
+#!/bin/bash
+#Patch the UUB System from Flash and USB
+#written by F.Ricciardi and R.Assiro - 09/2016
+#upgrade april 2019 - device tree file management
+dmesg -n4
+
+# I decide to keep the partitions attached !!!
+ubiattach -p /dev/mtd3 >/dev/null 	# attach mtd3 on ubi0
+echo 'Attaching mtd3 partition on ubi0'
+ubiattach -p /dev/mtd2 >/dev/null
+echo 'Attaching mtd2 partition on ubi1'
+
+echo
+echo '**************************************'
+echo '**** Starting UUB Patching system ****'
+echo '**************************************'
+echo
+echo '*** Patching the System from Flash ***'
+echo
+
+
+if  mountboot ; then
+  mkdir -p /boot/uub-patches
+  cd /boot/uub-patches
+  PATCHES=$(ls P* 2>/dev/null)
+  if [ -n "$PATCHES" ] ; then
+    N=$(echo "$PATCHES"|wc -w)
+    echo "Found $N patches to be applied"
+    for P in $PATCHES ; do
+      NAME="${P:3}"
+      if tar -C / -xf $P ; then
+        echo ">>> [$NAME] OK"
+      fi
+    done
+  else
+    echo ">>> No patches to be applied"
+    echo
+  fi
+fi
+echo
+echo '*** Updating the System from USB ***'
+echo
+if  mountusb ; then
+#############################################
+# l'immagine verra' aggiornata solo se il confronto delle date dei file e' diverso
+ 
+#      cp -p /usb/uub-update/image.ub /boot 
+#      cp -p /usb/uub-update/fpga.bit /boot 
+                                        
+     if [ -f /usb/uub-update/image.ub ] && [ /usb/uub-update/image.ub -nt /boot/image.ub ]; then
+        cp -p /usb/uub-update/image.ub /boot 
+	echo ">>Copying image.ub into /boot ..."	
+     fi
+     if [ -f /usb/uub-update/fpga.bit ] && [ /usb/uub-update/fpga.bit -nt /boot/fpga.bit ]; then
+        cp -p /usb/uub-update/fpga.bit /boot 
+	echo ">>Copying fpga.bit into /boot ..."  
+     fi 
+     if [ -f /usb/uub-update/system.dtb ] && [ /usb/uub-update/system.dtb -nt /boot/system.dtb ]; then
+        cp -p /usb/uub-update/system.dtb /boot 
+	echo ">>Copying system.dtb into /boot ..."	
+     fi                                                          
+#############################################
+echo
+echo '*** Permanent patching the System from USB ***'
+echo
+
+  mkdir -p /usb/uub-patches
+  cd /usb/uub-patches
+  PATCHES=$(ls P* 2>/dev/null)
+  if [ -n "$PATCHES" ] ; then
+    N=$(echo "$PATCHES"|wc -w)
+    echo "Found $N permanent patches to be applied"
+    echo
+    for P in $PATCHES ; do
+      NAME="${P:3}"
+      if tar -C / -xf $P ; then
+        echo -n ">>> [$NAME] OK"
+        if cp $P /boot/uub-patches ; then
+          echo "/Flashed"
+        else 
+          echo "Not Flashed"
+        fi
+      fi
+    done
+  else
+    echo ">>> No permanent patches to be applied"
+    echo
+  fi
+  echo
+  echo '*** Volatile patching the System from USB ***'
+  PATCHES=$(ls _P* 2>/dev/null)
+  if [ -n "$PATCHES" ] ; then
+    N=$(echo "$PATCHES"|wc -w)
+    echo "Found $N volatile patches to be applied"
+    echo
+    for P in $PATCHES ; do
+      NAME="${P:4}"
+      if tar -C / -xf $P ; then
+        echo ">>> [$NAME] OK/Volatile"
+      fi
+    done
+  else
+    echo ">>> No volatile patches to be applied"
+    echo
+  fi
+else
+  echo "No USB disk found"
+fi
+cd
+echo
+umount /boot		
+#umountboot
+
+umountusb
+echo

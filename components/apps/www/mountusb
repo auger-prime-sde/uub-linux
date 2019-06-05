@@ -1,5 +1,0 @@
-#!/bin/bash
-if ! df | grep /usb -q; then 
-mkdir /usb 2>/dev/null
-mount /dev/sda1 /usb
-fi

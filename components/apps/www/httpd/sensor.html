@@ -1,0 +1,83 @@
+
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<script type="text/javascript"src="js/Drinks.js"></script> 
+
+
+
+<script> 			
+			var data = Drinks.createManager(); 
+			data.href='cgi-bin/getdata.cgi?action=sensor'; 
+            		data.refresh="1"	
+			data.start(); 
+			
+			
+</script> 
+    
+<title>Auger Prime</title>
+</head>
+
+<body>
+<body background="images/background.png">
+
+<p align="center"><img border="0" src="images/auger_banner.jpg" width="900" height="150"><br>
+<font color = "white" size="6"><b>UUB Sensors monitor</b></a>
+<br>
+<led id="l1" color="green" value="1" x="750" y="190"onload="setInterval(function(){this.toggle();}.bind(this), 1000);"></led>
+<!--
+<img border="0" src="images/construction.jpg" width="500" height="250"><br>
+-->
+<table width="50%" border="3" align="center">
+
+<tr>
+<!--Temperatures -->
+<td width="25%" ><font size="5" color = "red"><p align="center">				
+<display id="T_AIR" range_from="40" max_range="55" range_to="55" text="Temperature" ;"> 
+<display id="T_AIR" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display> AIR Temperature</td>
+		
+<td width="25%" ><font size="5" color = "red"><p align="center">	
+<display id="EXT_TEMP" range_from="40" max_range="55" range_to="55" text="Temperature" ;"> 
+<display id="EXT_TEMP" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display> External Temperature</td>				
+</tr>
+
+<tr>
+<!--BATTERIES Temperatures -->
+<td width="25%" ><font size="5" color = "red"><p align="center">				
+<display id="BAT1_TEMP" range_from="40" max_range="55" range_to="55" text="Battery 1" ;"> 
+<display id="BAT1_TEMP" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display>Battery 1 Temperature</td>
+		
+<td width="25%" ><font size="5" color = "red"><p align="center">	
+<display id="BAT2_TEMP" range_from="40" max_range="55" range_to="55" text="Battery 2" ;"> 
+<display id="BAT2_TEMP" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display>Battery 2 Temperature</td>				
+</tr>
+
+
+<!--Temperatures 2 -->
+
+<tr>
+<td width="25%" ><font size="5" color = "red"><p align="center">				
+<display id="T_WAT" range_from="50" max_range="80" range_to="80" text="UUB Temperature" ;"> 
+<display id="T_WAT" type="digital" significative="1" cipher="3" width="70" height="35" x="80" y="160" link></display> UUB Temperature</td>
+		
+<td width="25%" ><font size="5" color = "red"><p align="center">	
+
+<display id="P_AIR" min_range="0" range_to="1100" max_range="1100" text="Air Presure" ;">
+<display id="P_AIR" type="digital" cipher="4" max_range="1100" width="70" height="35" x="80" y="160" link></display>Air Presure</td>				
+
+
+</tr>
+<!--
+-->
+
+
+</table>
+
+
+<hr width="60%">
+<p align="center"><font color = "white" size="4">Auger Prime - 2016 </p>
+<p align="center"> <font color = "grey" size="2">R. Assiro Embedded Web Server design</b></a>
+
+</body>
+
+</html>

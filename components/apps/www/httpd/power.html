@@ -1,0 +1,160 @@
+
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<script type="text/javascript"src="js/Drinks.js"></script> 
+<script> 			
+			var data = Drinks.createManager(); 
+			data.href='cgi-bin/getdata.cgi?action=lv-measure'; 
+            		data.refresh="1"	
+			data.start(); 						
+</script> 
+<title>Auger Prime</title>
+</head>
+
+<body>
+<body background="images/background.png">
+
+<p align="center"><img border="0" src="images/auger_banner.jpg" width="900" height="150"><br>
+<font color = "white" size="6"><b>Battery and UUB internal power supplies</b></a>
+<br>
+<led id="l1" color="green" value="1" x="750" y="190"onload="setInterval(function(){this.toggle();}.bind(this), 1000);"></led>
+
+<table width="50%" border="0" align="center">
+
+<tr>
+<!--Power BATTERY 24.0V -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_EXT1_24V" type="analog"  max_range="32.0" range_from="0" range_to="21" text="Battery Volts" ;"> 
+<display id="V_EXT1_24V" type="digital" significative="2" cipher="3" width="80" height="35" x="200" y="120" link></display> Battery 24V</td>			
+ <td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_V_INPUTS" type="analog" style="float:center;" range_from="600" max_range="800" range_to="800" text="mA Battery" ;"> 
+<display id="I_V_INPUTS" type="digital" cipher="3"  max_range="900" width="80" height="35" x="200" y="120" link></display> Battery 24V</td>
+</tr>
+
+<!--SP_VOLT -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="SP_VOLT" type="analog"  max_range="40.0" text="Volts" ;"> 
+<display id="SP_VOLT" type="digital" significative="2" cipher="3" width="80" height="35" x="200" y="120" link></display> Solar Panel Voltage</td>			
+
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<!--
+<display id="LOADCURR" type="analog" style="float:center;"  max_range="50" text="A" ;"> 
+<display id="LOADCURR" type="digital" cipher="3" significative="2"  max_range="900" width="80" height="35" x="200" y="120" link></display>LOAD Current</td>
+-->
+
+<display id="SP_CURR" type="analog" style="float:center;"  max_range="5" text="Ampere" ;"> 
+<display id="SP_CURR" type="digital" cipher="3" significative="2"  max_range="900" width="80" height="35" x="200" y="120" link></display>Solar Panel Load Current</td>
+
+
+</tr>
+
+
+<!--Power BATTERY central 
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="BAT_CENT" type="analog"  max_range="16.0" range_from="0" range_to="11" text="Battery Center V" ;"> 
+<display id="BAT_CENT" type="digital" significative="2" cipher="3" width="80" height="35" x="200" y="120" link></display> Battery Center</td>			
+ <td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="BAT_OUT" type="analog" style="float:center;" range_from="0" max_range="32" range_to="21" text="Battery Total V" ;"> 
+<display id="BAT_OUT" type="digital" significative="2" cipher="3" width="80" height="35" x="200" y="120" link></display> Battery Total </td>
+</tr>
+-->
+
+<!--Power supply 1.0V -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_1V0" type="analog" max_range="1.2" range_from="1.1" range_to="1.2" text="Volts" ;"> 
+<display id="V_1V0" type="digital" cipher="3" significative="2" max_range="3" width="80" height="35" x="200" y="120" link></display> Power supply 1.0V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_1V0" type="analog" range_from="140" max_range="200" range_to="200" text="Current mA" ;"> 
+<display id="I_1V0" type="digital" cipher="3" significative="2" max_range="1300.0" width="80" height="35" x="200" y="120" link></display> Power supply 1.0V</td>
+</tr>
+
+<!--Power supply 1.2V --> 
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_1V2" type="analog" max_range="1.4" range_from="1.3" range_to="1.4" text="Volts" ;"> 
+<display id="V_1V2" type="digital" cipher="3" significative="2" max_range="3" width="80" height="35" x="200" y="120" link></display> Power supply 1.2V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_1V2" type="analog" range_from="50" max_range="100" range_to="100" text="Current mA" ;"> 
+<display id="I_1V2" type="digital" cipher="3" significative="2" max_range="200.0" width="80" height="35" x="200" y="120" link></display> Power supply 1.2V</td>
+</tr>
+
+<!--Power supply 1.8V -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_1V8" type="analog" max_range="2.2" range_from="1.9" range_to="2.2" text="Volts" ;"> 
+<display id="V_1V8" type="digital" cipher="3" significative="2" max_range="3" width="80" height="35" x="200" y="120" link></display> Power supply 1.8V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_1V8" type="analog" range_from="240" max_range="300" range_to="300" text="Current mA" ;"> 
+<display id="I_1V8" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply 1.8V</td>
+</tr>
+
+<!--Power supply 3V3_SC -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_3V3" type="analog" max_range="3.6" range_from="0" range_to="3.1" text="Volts" ;"> 
+<display id="V_3V3" type="digital" cipher="3" significative="2" max_range="4" width="80" height="35" x="200" y="120" link></display> Power supply S.C. +3.3V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_3V3_SC" type="analog" range_from="300" max_range="350" range_to="350" text="Current mA" ;"> 
+<display id="I_3V3_SC" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply S.C. +3.3V</td>
+</tr>
+
+<!--Power supply positive 3V3 --> 
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_AN_P5V" type="analog" max_range="3.6" range_from="0" range_to="3.1" text="Volts" ;"> 
+<display id="V_AN_P5V" type="digital" cipher="3" significative="2" max_range="4" width="80" height="35" x="200" y="120" link></display> Power supply analog +3.3V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_P5V_ANA" type="analog" range_from="140" max_range="160" range_to="160" text="Current mA" ;"> 
+<display id="I_P5V_ANA" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply analog +3.3V</td>
+</tr>
+
+<!--Power supply negative 3V3 -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_N5V_ANA" type="analog" max_range="3.6" range_from="0" range_to="3.1" text="-Volts" ;"> 
+<display id="V_N5V_ANA" type="digital" cipher="3" significative="2" max_range="4" width="80" height="35" x="200" y="120" link></display> Power supply analog -3.3V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_N5V_ANA" type="analog" range_from="140" max_range="160" range_to="160" text="Current mA" ;"> 
+<display id="I_N5V_ANA" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply analog -3.3V</td>
+</tr>
+
+<!--Power supply 5V -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_GPS_5V" type="analog" max_range="5.6"  range_from="0" range_to="4.7"text="Volts" ;"> 
+<display id="V_GPS_5V" type="digital" cipher="3" significative="2" max_range="10" width="80" height="35" x="200" y="120" link></display> Power supply 5V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_GPS_5V" type="analog" range_from="80" max_range="100" range_to="100" text="Current mA" ;"> 
+<display id="I_GPS_5V" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply 5V</td>
+</tr>
+
+<!--Power supply 12V RADIO -->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_RADIO_12V" type="analog" max_range="13"  range_from="0" range_to="11.6"text="Volts" ;"> 
+<display id="V_RADIO_12V" type="digital" cipher="3" significative="2" max_range="16" width="80" height="35" x="200" y="120" link></display> Power supply RADIO 12V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_RADIO_12V" type="analog" range_from="80" max_range="100" range_to="100" text="Current mA" ;"> 
+<display id="I_RADIO_12V" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply RADIO 12V</td>
+</tr>
+
+<!--Power supply 12V PMT-->
+<td width="25%" ><font size="4" color = "red"><p align="center">				
+<display id="V_PMTS_12V" type="analog" max_range="13"  range_from="0" range_to="11.6"text="Volts" ;"> 
+<display id="V_PMTS_12V" type="digital" cipher="3" significative="2" max_range="16" width="80" height="35" x="200" y="120" link></display> Power supply PMTs 12V</td>			
+<td width="25%" ><font size="4" color = "red"><p align="center">			
+<display id="I_PMTS_12V" type="analog" range_from="80" max_range="100" range_to="100" text="Current mA" ;"> 
+<display id="I_PMTS_12V" type="digital" cipher="3"  max_range="400.0" width="80" height="35" x="200" y="120" link></display> Power supply PMTs 12V</td>
+</tr>
+
+
+
+
+
+
+
+
+</table>
+
+
+<hr width="60%">
+<p align="center"><font color = "white" size="4">Auger Prime - 2017 </p>
+<p align="center"> <font color = "grey" size="2">R. Assiro Embedded Web Server design</b></a>
+
+</body>
+
+</html>

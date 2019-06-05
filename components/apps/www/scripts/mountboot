@@ -1,0 +1,25 @@
+#!/bin/sh
+#written by R.Assiro - 09/2016
+#mount flash partition MTD2 in /boot
+if df | grep -q /boot$ ; then
+  echo "/boot already mounted"
+  exit 0
+fi
+
+#echo -n "Attaching mtd2 partition... "
+#ubidetach -p /dev/mtd2 2>/dev/null >/dev/null
+#if ubiattach -p /dev/mtd2 >/dev/null ; then
+#  echo OK
+#else
+#  echo "ERROR - Attaching mtd2 not possible"
+#  exit 1
+#fi
+
+echo -n "Mounting ubi1:itbs on /boot... "
+if mount -t ubifs ubi1:itbs /boot ; then
+  echo OK
+else
+  echo "ERROR"
+  exit 2
+fi
+

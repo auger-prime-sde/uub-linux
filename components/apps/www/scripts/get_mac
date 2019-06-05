@@ -1,0 +1,19 @@
+#!/bin/sh
+#mac address calculation from chip ID
+
+
+chip_id = $(slowc -s)
+echo $chip_id
+
+echo 
+echo ""
+echo
+
+
+
+echo "####################################################"
+
+
+
+
+

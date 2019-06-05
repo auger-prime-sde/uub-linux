@@ -1,0 +1,24 @@
+#!/bin/sh
+#written by R.Assiro - 10/2016
+#recovery system - copy image.ub from recovery volume to itbs volume
+#script di salvataggio immagine di sistema da vol recovery verso vol itbs. Salvataggio se sistema non dovesse partire
+
+mountrecovery
+mountboot
+	
+cp -p /recovery/image.ub /boot
+cp -p /recovery/fpga.bit /boot
+cp -p /recovery/system.dtb /boot
+#cp -r /recovery/uub-patches/ /boot
+
+umountboot
+umountrecovery
+
+echo "UUB's image of system copied from /recovery to /boot volume!"
+
+
+
+
+
+
+

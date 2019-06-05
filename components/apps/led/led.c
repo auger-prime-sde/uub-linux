@@ -1,26 +1,44 @@
 // led shot generator
-#include <fcntl.h>
-#include <stdio.h>
-#include <linux/i2c-dev.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <stdlib.h>
-#define DAC_ADDR		0x0C // DAC slave address DAC AD5316
-int file;
-int dac_led1, dac_led2, dac_led3, dac_led4;
 
+#include <linux/i2c-dev.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <signal.h>
+#include <fcntl.h>
+#include <ctype.h>
+#include <termios.h>
+#include <sys/types.h>
+#include <sys/mman.h>
+
+#define FATAL do { fprintf(stderr, "Error at line %d, file %s (%d) [%s]\n", \
+  __LINE__, __FILE__, errno, strerror(errno)); exit(1); } while(0)
+
+#define MAP_SIZE 4096UL
+#define MAP_MASK (MAP_SIZE - 1)
+
+#define DAC_ADDR		0x0C // DAC slave address DAC AD5316
+
+int file, dac_led1, dac_led2, dac_led3, dac_led4, width, time;
 
 int main(int argc, char *argv[])
 {
+    void *map_base, *virt_addr;
+	unsigned long read_result, writeval;
+	off_t target;
+	time = 6200000; //width of pulse 100ns
 	if (argc == 1) {
-		 dac_led1 = 400;//argv[1];//valore canale 1 dac led
-		 dac_led3 = 400;//argv[2];//valore canale 3 dac led
+		 dac_led1 = 200;//argv[1];//valore canale 1 dac led
+		 dac_led3 = 0;//argv[2];//valore canale 3 dac led
 		// USCITA PX4
-		 dac_led2 = 600;//argv[3];//valore canale 2 dac led
-		 dac_led4 = 600;//argv[4];//valore canale 4 dac led
-		 printf("Default LED values %d  %d  %d  %d\n",dac_led1,dac_led2,dac_led3,dac_led4);
+		 dac_led2 = 200;//argv[3];//valore canale 2 dac led
+		 dac_led4 = 0;//argv[4];//valore canale 4 dac led
+		 width = 10; //number x 100ns
+		 printf("Default LED values %d  %d  %d  %d - width of pulse %d x 100ns\n",dac_led1,dac_led2,dac_led3,dac_led4, width);
 	}
-	else if (argc < 5 || argc > 6){
+	else if (argc < 5 || argc > 7){
 		usage();
 	}
 	else {
@@ -28,20 +46,18 @@ int main(int argc, char *argv[])
 		dac_led2 = atoi (argv[2]);
 		dac_led3 = atoi (argv[3]);
 		dac_led4 = atoi (argv[4]);
-		printf("LED values %d  %d  %d  %d\n",dac_led1,dac_led2,dac_led3,dac_led4);
+		width = atoi (argv[5]);
+		printf("LED values %d  %d  %d  %d - width of pulse %d x 100ns\n",dac_led1,dac_led2,dac_led3,dac_led4, width);
 	}
 
 	int fd, file,i,j, Status, data_trig;
-	int int_trig =  0x41200000;
 	int value = 0;
-	unsigned page_addr, page_offset;
 	void *ptrt;
-	unsigned page_size=sysconf(_SC_PAGESIZE);
-	page_offset = 16;
 	char buf[]={0x02,0x73,0x50};
 	char filename[20];
 
-   	printf("Initialization of I2C LED DAC..... ");
+
+  // 	printf("Initialization of I2C LED DAC..... ");
 	snprintf(filename, 19, "/dev/i2c-0");
 	file = open(filename, O_RDWR);
 	if (file < 0) {
@@ -82,32 +98,37 @@ int main(int argc, char *argv[])
      	if (write(file, buf, sizeof(buf)) != sizeof(buf)) {
      	    exit(3);
      	}
-     	printf("Done!\n");
+     	printf("OK... ");
 
-     	fd = open ("/dev/mem", O_RDWR);
-     	page_addr = (int_trig & (~(page_size-1)));
-     	page_offset = int_trig - page_addr;
-     	ptrt = mmap(NULL, page_size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, page_addr);
+     	target = 0x43c203fc;
 
-     	printf("LED Pulse is running... ");
+     	if((fd = open("/dev/mem", O_RDWR | O_SYNC)) == -1) FATAL;
+     	map_base = mmap(0, MAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, target & ~MAP_MASK);
+     	if(map_base == (void *) -1) FATAL;
+
+     	virt_addr = map_base + (target & MAP_MASK);
+     	printf("LED Pulse is running...!\n ");
+
      	while(1)
-     	{
-     		value = 0b00000100; //Bit 2 led shot from system
-     		*((unsigned *)(ptrt + page_offset)) = value;// Write value to the device register
-     		usleep(1);
-     		value = 0b00000000;
-     		*((unsigned *)(ptrt + page_offset)) = value;
-     		usleep (200000);
-     	}
+     	        	{
+     		   	   	   writeval = (time * width);
+     		   	   	   *((unsigned long *) virt_addr) = writeval;
+     		   	   	   writeval = (time * width) +1;
+     		   	       *((unsigned long *) virt_addr) = writeval;
+     		   	       usleep (100000);
 
+     	        	}
+
+     	       	    close(fd);
 
 }
 
 void usage(void)
 {
-	printf("|    led <val LED1> <val LED2> <val LED3> <val LED4>\n");
+	printf("|    led <val LED1> <val LED2> <val LED3> <val LED4> <pulse x 100ns>\n");
 	printf("|    val is number of DAC counting <0...1023>\n");
-	printf("|    example: led 500 500 300 300\n");
-
+	printf("|    pulse is a number (number x 10ns) - pulse = 10 (x 100ns) = 1ms\n");
+	printf("|    example: led 500 500 300 300 10\n");
+	printf("|    example: led PX3 PX4 PX3 PX4\n");
 	exit(1);
 }

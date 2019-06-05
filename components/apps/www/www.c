@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
 	printf("Hello, PetaLinux World!\n");
-	printf("cmdline args:\n");
+//	printf("cmdline args:\n");
 	while(argc--)
 		printf("%s\n",*argv++);
 

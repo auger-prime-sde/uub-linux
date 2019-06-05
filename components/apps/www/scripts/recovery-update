@@ -1,0 +1,31 @@
+#!/bin/sh
+#written by R.Assiro - 11/2016
+#recovery system - copy image.ub from itbs volume volume to recovery
+#script di salvataggio immagine di sistema da volitbs  verso vol recovery. Salvataggio se sistema non dovesse partire
+
+mountrecovery
+mountboot
+
+#mkdir -p /recovery/uub-patches	
+
+cp -p /boot/image.ub /recovery
+echo "copy image.ub >> /recovery"
+cp -p /boot/fpga.bit /recovery
+echo "copy fpga.bin >> /recovery"
+cp -p /boot/system.dtb /recovery
+echo "copy system.dtb >> /recovery"
+#cp -r /boot/uub-patches/ /recovery/
+#echo "copy /uub-patches >> /recovery"
+
+
+umountboot
+umountrecovery
+
+echo "UUB's FPGA and system copied from /boot volume to /recovery!"
+
+
+
+
+
+
+

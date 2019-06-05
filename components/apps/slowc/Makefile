@@ -23,8 +23,8 @@ clean:
 
 install: $(APP)
 	$(TARGETINST) -d $(APP) /bin/$(APP)
-	$(TARGETINST) -d -p 0755 slowc /etc/init.d/slowc
-	$(TARGETINST) -s /etc/init.d/slowc /etc/rc5.d/S99slowc
+#	$(TARGETINST) -d -p 0755 slowc /etc/init.d/slowc
+#	$(TARGETINST) -s /etc/init.d/slowc /etc/rc5.d/S99slowc
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<

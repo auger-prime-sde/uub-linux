@@ -1,0 +1,17 @@
+#!/bin/sh
+#umount boot partition from /boot
+if ! df | grep -q /boot$ ; then
+  echo "/boot already umounted"
+  exit 0
+fi
+
+echo -n "Umounting /boot volume... please wait! "
+cd
+if umount  /boot ; then
+#  ubidetach -p /dev/mtd2 2>/dev/null >/dev/null
+  echo OK
+else
+  echo "ERROR"
+  exit 2
+fi
+
